@@ -2,8 +2,8 @@ export default {
   /**
    * basic Information
    */
-  title: `jeong-min.com`,
-  description: `개발자 단민`,
+  title: `hooninedev.com`,
+  description: `후니네`,
   language: `ko`,
   siteUrl: `https://jeong-min.com/`,
   ogImage: `/og-image.png`, // Path to your in the 'static' folder
@@ -21,22 +21,22 @@ export default {
    * introduce yourself
    */
   author: {
-    name: `이정민`,
-    nickname: `단민`,
+    name: `이지훈`,
+    nickname: `후니네`,
     stack: ['Frontend', 'React', 'Typescript'],
     bio: {
-      email: `ljm991108@gmail.com`,
+      email: `jihoon7705@gmail.com`,
       residence: 'Seoul, South Korea',
-      bachelorDegree: 'Kyunghee Univ. Computer Engineering (2018.03-2022.02)',
+      bachelorDegree: '',
     },
     social: {
-      github: `https://github.com/danmin20`,
-      linkedIn: `https://www.linkedin.com/in/jeonming-lee/`,
-      resume: `https://www.figma.com/file/dtkCl6G7G5DVe18DN2LWny/%EC%9D%B4%EC%A0%95%EB%AF%BC-%EC%9D%B4%EB%A0%A5%EC%84%9C?node-id=0%3A1`,
+      github: `https://github.com/jiji-hoon96`,
+      linkedIn: `https://www.linkedin.com/in/jiji-hoon96`,
+      resume: ``,
     },
     dropdown: {
-      tistory: 'https://danminblog.tistory.com/',
-      velog: 'https://velog.io/@danmin20',
+      tistory: '',
+      velog: '',
     },
   },
 
@@ -88,7 +88,7 @@ export default {
     },
   ],
 
-  /**
+  /*thumb
    * metadata for Playground Page
    */
   projects: [

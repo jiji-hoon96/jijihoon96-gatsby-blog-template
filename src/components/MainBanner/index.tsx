@@ -46,7 +46,6 @@ const MainBanner: React.FC<MainBannerProps> = ({ author }) => {
           {/* space-between을 위한 빈 div */}
           <div />
           <S.DropdownButton onMouseLeave={() => setIsDropdownOpened(false)}>
-            <div onMouseEnter={() => setIsDropdownOpened(true)}>etc.</div>
             {isDropdownOpened && (
               <S.Dropdown>
                 {Object.keys(dropdown).map(
@@ -62,10 +61,6 @@ const MainBanner: React.FC<MainBannerProps> = ({ author }) => {
           </S.DropdownButton>
         </S.SocialWrapper>
       </S.IntroWrapper>
-
-      <S.BuyMeACoffeeWrapper>
-        <BuyMeACoffee />
-      </S.BuyMeACoffeeWrapper>
     </S.Wrapper>
   );
 };
