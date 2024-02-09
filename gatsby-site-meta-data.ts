@@ -5,7 +5,7 @@ export default {
   title: `hooninedev.com`,
   description: `후니네`,
   language: `ko`,
-  siteUrl: `https://jeong-min.com/`,
+  siteUrl: `https://hooninedev.com/`,
   ogImage: `/og-image.png`, // Path to your in the 'static' folder
 
   /**
@@ -13,7 +13,7 @@ export default {
    */
   comments: {
     utterances: {
-      repo: ``, //`danmin20/danmin-gatsby-blog`,
+      repo: `jiji-hoon96/jijihoon96-gatsby-blog-template`, //`danmin20/danmin-gatsby-blog`,
     },
   },
 
