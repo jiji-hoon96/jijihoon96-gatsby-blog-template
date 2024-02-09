@@ -25,7 +25,7 @@ const PostTemplate: React.FC<PostTemplateProps> = ({ location, data }) => {
 
   return (
     <Layout location={location}>
-      <Seo title={`개발자 단민 | ${curPost?.title}`} description={curPost?.excerpt} />
+      <Seo title={`후니네 개발하우스 | ${curPost?.title}`} description={curPost?.excerpt} />
       <PostHeader post={curPost} />
       <S.PostContent>
         <div className='markdown' dangerouslySetInnerHTML={{ __html: curPost.html }} />

@@ -44,7 +44,7 @@ Github Page, Netlify, Vercel 등 원하시는 배포 환경을 사용하시면 �
 
 #### 🔧 Netlify로 만들기
 
-아래 버튼을 사용하면, 개인 계정으로 템플릿 Repository 생성 및 Netlify 배포를 동시에 진행할 수 있습니다. 
+아래 버튼을 사용하면, 개인 계정으로 템플릿 Repository 생성 및 Netlify 배포를 동시에 진행할 수 있습니다.
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/danmin20/danmin-gatsby-blog-template)
 
@@ -75,7 +75,7 @@ $ yarn dev
 
 ```ts
 title: `jeong-min.com`,
-description: `개발자 단민`,
+description: `후니네 개발하우스`,
 language: `ko`,
 siteUrl: `https://jeong-min.com/`,
 ogImage: `/og-image.png` // 공유할 때 보이는 미리보기 이미지
@@ -102,7 +102,7 @@ comments: {
 
 ### 3. 글쓴이 정보
 
-글쓴이(author)에 입력하신 정보는 메인 화면과 about 페이지에서 사용됩니다. 
+글쓴이(author)에 입력하신 정보는 메인 화면과 about 페이지에서 사용됩니다.
 
 ```ts
 author: {
@@ -147,7 +147,7 @@ featured: [
     title: 'Ignored Category',
     category: 'category-ignore', // Keywords with 'ignore' are not categorized
   },
-]
+];
 ```
 
 위의 category에 들어가는 키워드는 마크다운 파일로 글을 작성할 때 넣은 category와 동일합니다.

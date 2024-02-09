@@ -28,7 +28,7 @@ const About: React.FC<AboutProps> = ({ location, data }) => {
 
   return (
     <Layout location={location}>
-      <Seo title='개발자 단민 | About' />
+      <Seo title='후니네 개발하우스 | About' />
       <MainBanner author={author} />
       <Bio bio={author.bio} />
 

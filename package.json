@@ -1,9 +1,9 @@
 {
-  "name": "danmin-gatsby-blog",
+  "name": "hoon-gatsby-blog",
   "private": true,
-  "description": "gatsby blog made by danmin",
+  "description": "gatsby blog made by hoon",
   "version": "0.1.0",
-  "author": "danmin20 <ljm991108@gmail.com>",
+  "author": "hoon20 <jihoon7705@gmail.com>",
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
