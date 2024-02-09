@@ -20,7 +20,7 @@ javascript 는 비동기 함수(setTimeout, ajax, Promise 객체 등)를 이용
 
 </aside>
 
-## 동기와 비동기
+# 동기와 비동기
 
 동기(Synchronous) : 먼저 시작된 작업이 끝날 때까지 기다리다가 새로 시작(한번에 여러작업이 아닌 하나씩)
 
