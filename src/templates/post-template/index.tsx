@@ -30,10 +30,7 @@ const PostTemplate: React.FC<PostTemplateProps> = ({ location, data }) => {
       <S.PostContent>
         <div className='markdown' dangerouslySetInnerHTML={{ __html: curPost.html }} />
       </S.PostContent>
-      <S.BuyMeACoffeeWrapper>
-        <div>👇 도움이 되셨다면 👇</div>
-        <BuyMeACoffee />
-      </S.BuyMeACoffeeWrapper>
+
       <PostNavigator prevPost={prevPost} nextPost={nextPost} />
       <Utterances repo={utterancesRepo} path={curPost.slug} />
     </Layout>

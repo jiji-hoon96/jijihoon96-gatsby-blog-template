@@ -7,20 +7,23 @@ categories: Front-end
 
 ![메인이미지](메인이미지.png)
 
-### Single Thread
+## What is Single Thread?
 
 javascript 는 Single Thread 기반 언어 ⇒ 한 번에 하나의 작업만 수행 가능
 
-하지만! 동시에 병렬처리 해야 될 때가 있음!
+하지만! 동시에 병렬처리 해야 될 때가 있다
 
-javascript 는 비동기 함수(setTimeout, ajax, Promise 객체 등)를 이용
+그럴 때 javascript는 비동기 함수(setTimeout, ajax, Promise 객체 등)를 이용
+
+<br/>
 
 <aside>
 💡 자바스크립트 엔진 자체는 Single Thread 지만 특정 API 들은 브라우저/런타임을 통해 Multi Thread 로 작업 가능
-
 </aside>
 
-# 동기와 비동기
+<br/>
+
+## 동기와 비동기
 
 동기(Synchronous) : 먼저 시작된 작업이 끝날 때까지 기다리다가 새로 시작(한번에 여러작업이 아닌 하나씩)
 
@@ -69,20 +72,20 @@ document.querySelector('#input').addEventListener('input', function (e) {
 });
 ```
 
-### Promise
+## Promise
 
-**Promise의 상태와 resolve(), reject()**
+### What is Promise?
+
+- Promise의 상태는 프로세스가 기능을 수행하고 있는 중인지, 기능 수행이 완료되어 성공했는지 실패했는지에 대한 상태를 의미
+- promise의 객체는 new Promise()로 생성
+- 콜백 함수를 선언할 수 있고, 콜백 함수의 인자는 resolve, reject
 
 | 대기(pending)   | 진행 상태, Promise 객체가 생성되어 사용될 준비가 된 상태                                                        |
 | --------------- | --------------------------------------------------------------------------------------------------------------- |
 | 이행(Fulfilled) | 성공 상태, 비동기 처리에 의해 원하는 올바른 결과를 얻어와 그 결과를 정상적으로 처리하고자 resolve가 호출된 상태 |
 | 거부(Rejected)  | 실패 상태, 무언가 잘못되어 예외로 처리하고자 reject가 호출된 상태                                               |
 
-- Promise의 상태는 프로세스가 기능을 수행하고 있는 중인지, 기능 수행이 완료되어 성공했는지 실패했는지에 대한 상태를 의미
-- promise의 객체는 new Promise()로 생성
-- 콜백 함수를 선언할 수 있고, 콜백 함수의 인자는 resolve, reject
-
-**promise 메서드 체인 (then/catch/finally)**
+### promise 메서드 체인 (then/catch/finally)
 
 - 체이닝(chaining) : 동일한 객체에 메서드를 연결할 수 있는 것
 - then() - 성공(resolve) 시에는 then 메서드에 실행할 콜백 함수를 인자로 넘긴다.
@@ -98,7 +101,7 @@ promise
 // 위와 같이 메서드를 체이닝하면 함수를 호출한 주체가 실행을 완료한 뒤 자기 자신을 리턴한다.
 ```
 
-**promise 처리 흐름 보기**
+### promise 처리 흐름 보기
 
 ![https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/promises.png](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/promises.png)
 
@@ -162,9 +165,9 @@ getData()
   });
 ```
 
-**Promise.all / Promise.race**
+### Promise.all / Promise.race
 
-`Promise.all`은 여러 작업을 동시에 처리하고, 작업이 모두 다 실행 완료되면 모두 다 반환한다.
+- `Promise.all`은 여러 작업을 동시에 처리하고, 작업이 모두 다 실행 완료되면 모두 다 반환한다.
 
 ```jsx
 Promise.all([timer(1000), timer(2000), timer(3000)]).then((value) => {
@@ -173,7 +176,7 @@ Promise.all([timer(1000), timer(2000), timer(3000)]).then((value) => {
 // [1000, 2000, 3000] → 3000까지 모두 다 실행이 끝난 후에 다 반환
 ```
 
-`Promise.race`은 실행이 가장 빠른 결과를 반환한다.
+- `Promise.race`은 실행이 가장 빠른 결과를 반환한다.
 
 ```jsx
 Promise.race([timer(1000), timer(2000), timer(3000)]).then((value) => {
@@ -182,7 +185,7 @@ Promise.race([timer(1000), timer(2000), timer(3000)]).then((value) => {
 // 1000 → 가장 빨리 실행된 1000 반환
 ```
 
-### Fetch API
+## Fetch API
 
 Fetch 함수는 자바스크립트에서 서버로 네트워크 요청을 보내고 응답을 받을 수 있도록 도와줌
 
@@ -205,18 +208,16 @@ fetch(url, options) // url, options
 // catch에서 에러 요청이 발생했을 때, 에러를 받는다.
 ```
 
-**HTTP 요청 (Method)**
+## HTTP 요청 (Method)
 
-> - Http Method(CRUD)
->
-> - Create -> `POST` (해당 URI를 요청하면 리소스를 생성)
-> - Read -> `GET` (해당 리소스를 조회)
-> - Update -> `PUT` (해당 리소스를 수정)
-> - Delete -> `DELETE` (리소스를 삭제)
+- Create -> `POST` (해당 URI를 요청하면 리소스를 생성)
+- Read -> `GET` (해당 리소스를 조회)
+- Update -> `PUT` (해당 리소스를 수정)
+- Delete -> `DELETE` (리소스를 삭제)
 
-**GET - 존재하는 자원을 요청**
+### GET - 존재하는 자원을 요청, 데이터 가져올 때 사용
 
-GET 메서드는 데이터를 가져올 때 쓰이며, default 동작이기 때문에 option을 작성 안해도 된다.
+default 동작이기 때문에 option을 작성 안해도 된다.
 
 ```jsx
 fetch("https://jsonplaceholder.typicode.com/posts/1")
@@ -233,9 +234,7 @@ fetch("https://jsonplaceholder.typicode.com/posts/1")
 }
 ```
 
-**POST - 새로운 자원 생성 요청**
-
-POST 메서드는 데이터를 보낼 때 사
+### POST - 새로운 자원 생성 요청, 데이터 전달할 때 사용
 
 method 옵션을 POST로 지정해주고, headers 옵션으로 JSON 포맷 사용한다고 알려줘야 하며, body 옵션에는 요청 데이터를 JSON 포맷으로 넣어준다.
 
@@ -259,9 +258,7 @@ fetch("https://jsonplaceholder.typicode.com/posts", {
 {title: "Test", body: "I am testing!", userId: 1, id: 101}
 ```
 
-**PUT - 존재하는 자원 변경 요청**
-
-PUT 메서드는 API에서 관리하는 데이터의 수정을 할 때 사용
+### PUT - 존재하는 자원 변경 요청, 데이터 수정할 때 사용
 
 method 옵션만 PUT으로 설정한다는 점 외에는 POST 방식과 비슷
 
@@ -281,9 +278,9 @@ fetch('https://jsonplaceholder.typicode.com/posts', {
   .then((data) => console.log(data));
 ```
 
-**DELETE - 존재하는 자원 삭제 요청**
+### DELETE - 존재하는 자원 삭제 요청
 
-DELETE 메서드는 데이터를 삭제할 때 사용하며, 보내는 데이터가 없기 때문에 headers, body 옵션이 필요 없음
+보내는 데이터가 없기 때문에 headers, body 옵션이 필요 없음
 
 ```jsx
 fetch('https://jsonplaceholder.typicode.com/posts/1', {
@@ -293,7 +290,7 @@ fetch('https://jsonplaceholder.typicode.com/posts/1', {
   .then((data) => console.log(data));
 ```
 
-### async/await
+## async/await
 
 then()을 연쇄적으로 체이닝하다보면 콜백지옥마냥 혼란에 빠짐 ⇒ async/await 으로 해결
 
@@ -346,27 +343,7 @@ JSON 문서 형식은 자바스크립트 객체의 형식을 기반으로 만들
 
 특정 언어에 종속되지 않기 때문에 다른 프로그래밍 언어를 이용해서도 쉽게 만들 수 있음
 
----
-
 ## 자바스크립트 엔진(V8)
-
-```jsx
-function fifth() {}
-function fourth() {
-  fifth();
-}
-function third() {
-  fourth();
-}
-function second() {
-  third();
-}
-function first() {
-  second();
-}
-
-first();
-```
 
 ![https://user-images.githubusercontent.com/15958325/194826292-d2789365-1ef8-4819-bcc5-e1978e478d70.gif](https://user-images.githubusercontent.com/15958325/194826292-d2789365-1ef8-4819-bcc5-e1978e478d70.gif)
 
@@ -380,19 +357,25 @@ first();
 
 javascript 는 Single Thread 기반 언어라서 하나의 Call Stack만을 가지고 한번에 하나의 Task만 처리
 
+<br/>
+
 ### Memory Heap
 
 객체가 저장되는 메모리 공간
 
 콜 스택의 요소인 실행 컨텍스트는 힙에 저장된 객체를 참조
 
-<aside>
-💡 **실행 컨텍스트**
-- 식별자를 등록하고 관리하는 스코프
-- 코드 실행 순서를 관리
-- 모든 코드는 실행 컨텍스트를 통해 실행/관리
+<br/>
 
-**실행 컨택스트 동작순서**
+## 실행 컨텍스트
+
+식별자를 등록하고 관리하는 스코프
+
+코드 실행 순서를 관리
+
+모든 코드는 실행 컨텍스트를 통해 실행/관리
+
+### 실행 컨택스트 동작순서
 
 1. 전역 코드 평가 : 변수/함수 선언문을 실행 ⇒ 전역변수/함수를 전역 스코프에 등록시킴
 
@@ -401,8 +384,6 @@ javascript 는 Single Thread 기반 언어라서 하나의 Call Stack만을 가�
 3. 함수 코드 평가: 함수 내부 매개변수와 지역 변수 선언문 실행 ⇒ 매개변수, 지역변수가 실행 컨텍스트가 관리하는 지역 스코프에 등록 ⇒ arguments 객체 생성 및 지역 스코프에 등록, this 바인딩 결정
 
 4. 함수 코드 실행 : 런타임 시작되어 함수 코드 순차 실행 ⇒ 매개변수, 지역변수에 값 할당, 내부 매서드 실행
-
-</aside>
 
 ## 브라우저 환경
 
@@ -458,11 +439,11 @@ console.log('End!');
 
 ![https://res.cloudinary.com/practicaldev/image/fetch/s--hPFPTZp2--/c_limit,f_auto,fl_progressive,q_66,w_880/https://dev-to-uploads.s3.amazonaws.com/i/p54casaaz9oq0g8ztpi5.gif](https://res.cloudinary.com/practicaldev/image/fetch/s--hPFPTZp2--/c_limit,f_auto,fl_progressive,q_66,w_880/https://dev-to-uploads.s3.amazonaws.com/i/p54casaaz9oq0g8ztpi5.gif)
 
----
-
 ## 응용문제 풀어보기 (자바스크립트 엔진 V8 - Chrome)
 
 ![응용문제](응용문제.png)
+
+### 실행 순서
 
 1. a() 함수 호출
 2. a() 함수 ⇒ call stack 에 추가
@@ -494,8 +475,6 @@ console.log('End!');
 28. a() 함수 call stack 에서 제거
 29. 타이머 만료되어 task queue 에서 call stack 으로 이동
 30. **setTimeout 출력**
-
----
 
 ## 정리
 
