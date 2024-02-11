@@ -112,7 +112,6 @@ author: {
     bio: {
       email: `ljm991108@gmail.com`,
       residence: 'Seoul, South Korea',
-      bachelorDegree: 'Kyunghee Univ. Computer Engineering (2018.03-2022.02)',
     },
     social: {
       github: `https://github.com/danmin20`,

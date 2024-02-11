@@ -27,13 +27,13 @@ const MainBanner: React.FC<MainBannerProps> = ({ author }) => {
           </strong>
           <span>를 좋아하는</span>
           <br />
-          개발자{' '}
+          프론트엔드 개발자{' '}
           <strong>
             <ReactRotatingText items={[name, nickname]} />
           </strong>
           입니다.
         </S.Title>
-        <Image alt='thumbnail' src='thumbnail.png' />
+        {/*<Image alt='thumbnail' src='thumbnail.png' />*/}
         <S.SocialWrapper>
           {Object.keys(social).map(
             (link, index) =>

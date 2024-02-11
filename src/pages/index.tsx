@@ -75,7 +75,6 @@ export const pageQuery = graphql`
           bio {
             email
             residence
-            bachelorDegree
           }
           social {
             github

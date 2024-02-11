@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
   return (
     <S.Wrapper>
       <S.Footer>
-        © Powered by <S.Link href='https://github.com/jiji-hoon96'>danmin</S.Link>
+        © Powered by <S.Link href='https://github.com/jiji-hoon96'>hoonine</S.Link>
       </S.Footer>
     </S.Wrapper>
   );
