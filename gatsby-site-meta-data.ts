@@ -51,10 +51,6 @@ export default {
       title: 'Community',
       category: 'Community',
     },
-    {
-      title: 'Ignored Category',
-      category: 'category-ignore', // Keywords with 'ignore' are not categorized
-    },
   ],
 
   /**
