@@ -51,6 +51,10 @@ export default {
       title: 'Community',
       category: 'Community',
     },
+    {
+      title: 'Life',
+      category: 'Life',
+    },
   ],
 
   /**
