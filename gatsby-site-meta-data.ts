@@ -44,12 +44,12 @@ export default {
    */
   featured: [
     {
-      title: 'Featured1',
-      category: 'featured1',
+      title: 'Front-end',
+      category: 'Front-end',
     },
     {
-      title: 'Featured2',
-      category: 'featured2',
+      title: 'Community',
+      category: 'Community',
     },
     {
       title: 'Ignored Category',
