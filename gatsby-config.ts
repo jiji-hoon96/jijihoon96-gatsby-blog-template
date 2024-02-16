@@ -33,7 +33,7 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-gtag`,
       options: {
-        trackingId: `G-XXXXXXXX`,
+        trackingId: `G-GSVYLL0LV0`,
         head: true,
       },
     },
@@ -87,7 +87,7 @@ const config: GatsbyConfig = {
               }
             `,
             output: '/rss.xml',
-            title: 'jeong-min.com RSS Feed',
+            title: 'hooninedev.com RSS Feed',
             match: '^/blog/',
             link: 'https://feeds.feedburner.com/gatsby/blog',
           },
