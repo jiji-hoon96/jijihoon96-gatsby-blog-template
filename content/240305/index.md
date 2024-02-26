@@ -112,11 +112,59 @@ aws s3, aws ec2, aws code deploy, bitbucket, 테스트 파일이 필요
 
 ![7.jpeg](7.jpeg)
 
-캐시된 파일들은 어디에있는가? ec2 의 가상저장소 ebs에 쌓임
+CI/CD 프로세스가 완료되었다!! 특별한 문제 없이 진행되었으나, EC2 EBS에 캐시가 과도하게 누적되어 있음을 확인하게 되었다. 캐시 보존 필요성을 인지하고 초기 설정에 따라 10일 이상 경과된 캐시는 자동 삭제되도록 설정했지만, 보다 효율적인 캐시 관리 방안을 찾게 되었다.
 
-잘못됫을 경우에 빽업하기위해서 캐시파일을 남겨둔다.
+~~하지만 현생이 너무 바빠서.. 추후 작업을 위해 공부한 것들을 기록해보자!~~
 
-**[[Linux] rsync란? rsync 사용법 / rsync로 데이터 백업하기**veloghttps://velog.io › Linux-rsync란-rsync-사용법-rsync로-...](https://velog.io/@inhwa1025/Linux-rsync%EB%9E%80-rsync-%EC%82%AC%EC%9A%A9%EB%B2%95-rsync%EB%A1%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B0%B1%EC%97%85%ED%95%98%EA%B8%B0)
+&nbsp;
+
+### 그래서 EBS가 뭐고 왜 사용할까?
+
+![9.png](9.png)
+
+EBS(Elastic Block Storage)는 EC2의 연산처리를 한 후에 해당 데이터를 저장하는 역할을 하는 것이다. 쉽게 표현하면 EC2는 가상 서버라면 EBS는 가상 하드디스크라고 할 수 있다. 저렴한 비용으로 사용량을 확장할 수 있고 영구 블록 스토리지 볼륨을 제공한다.
+
+> 영구 블록 스토리지 볼륨은 실제 하드 드라이브와 유사하게 작동하는 클라우드 기반 스토리지, EC2 인스턴스에서 사용할 수 있는 영구적 (데이터가 삭제되지 않음) 저장 공간을 제공하며, 다양한 용량, 성능, 가격 옵션으로 제공
+
+EBS는 디스크 하나하나 저장 단위인 EBS 볼륨으로 구성되어있다. EBS 타입도 5가지 제공되는데, ~~너무 어렵다..~~ 구글링 해보니 용량과 MAX IOPS 수치를 확인해서 상황에 따라 적합한 타입을 사용하면 된다고 한다! ~~하지만 나는 요금을 아끼기 위해서 마그네틱 타입을 사용하고 있다.~~
+
+EBS를 사용하는 이유는 아주 많을 것 같다. 다양한 옵션을 사용할 수 있고 적은 비용으로 확장하기도 쉽다. 데이터 손실을 방지하는 것도 훌륭한 기능이다. 그 중에 EC2가 종료되어도 별개의 네트워크로 연결되어 데이터가 유지되는 EBS의 영구성이 큰 장점이라고 생각한다. 그리고 EC2가 변경되어도 재연결하기도 쉽고 하나의 EBS를 여러개의 EC2에 장착도 가능하다.
+
+![10.jpeg](10.jpeg)
+
+&nbsp;
+
+### 효율적인 캐시관리를 위해 OOOOO을 사용해볼 예정입니다~!
+
+EBS에 캐시가 누적될 때마다 든 생각이 있다. `그냥.. 차이가 생긴 파일, 폴더만 옮겨주면 되잖아. 그럼 캐시도 줄고 속도도 향상되지 않을까??` 라는 생각을 가지고 불타는 구글링을 해보다가 찾은 방법이 있다.
+
+<img src="https://post-phinf.pstatic.net/MjAxODEyMTFfMTAw/MDAxNTQ0NTA0MDgyOTMz.bD3_qYAKhivyntOXUfWOxIDab4msHT-KNMDDwq3oMnIg.4tDkeh83lxHseQFLoy4c9JAXtfdy3iyPzGlN_2JWLqYg.GIF/IzLmo84UQg10xLdWQeK45JJ9bXgU.jpg?type=w400" height="300">
+
+&nbsp;
+
+&nbsp;
+
+<h1>그건 바로!!!!!</h1>
+
+&nbsp;
+
+<h2>그건 바로!!!</h2>
+
+&nbsp;
+
+<h3>그건 바로!</h3>
+
+&nbsp;
+
+![11.jpeg](11.jpeg)
+
+**Rsync(Remoe Sync)** 는 원격에 있는 파일과 디렉토리를 복사하고 동기화 하기 위해서 사용하는 툴이며 동시에 네트워크 프로토콜로서 커맨드 라인의 옵션들을 이용해서 배치 프로그램을 개발하기 쉬다는 장점이 있다. 이 스크립트를 cron 등에 올리는 걸로 간단하게 백업 혹은 미러(mirror) 시스템을 구축할 수 있다고 한다!
+
+그리고 내가 rsync를 선택한 가장 이유는 scp보다 빠르고, remote-update 프로토콜을 이용해서 차이가 있는 파일만 복사해서 처음에는 모든 파일과 디렉토리를 복사하겠지만, 다음부터는 차이가 있는 파일만 복사하기 때문에 더 빠르고 효율적으로 작동한다는 점이다. 아직 사용해보지는 않았지만, 추후 작업을 하게 되면 업데이트 할 예정이니..
+
+![12.jpeg](12.jpeg)
+
+rsync를 찾아보면서 도움이 된 자료들을 올려둘테니 [개발괘발개발새발님의 rsync](https://velog.io/@inhwa1025/Linux-rsync%EB%9E%80-rsync-%EC%82%AC%EC%9A%A9%EB%B2%95-rsync%EB%A1%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B0%B1%EC%97%85%ED%95%98%EA%B8%B0) 이랑 [Feccle님의 rsync](https://feccle.tistory.com/96) 을 읽어봐도 좋을 것 같다.
 
 &nbsp;
 
