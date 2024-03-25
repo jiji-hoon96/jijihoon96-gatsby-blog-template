@@ -271,17 +271,17 @@ vite.config.ts 와 tsconfig.json을 루트 디렉토리에 만들어주고 세�
 
 <hr>
 
-> <h4>출처 및 도움되는 링크들</h4>
->
-> [Vite 공식 홈페이지](https://ko.vitejs.dev/guide/why.html)
->
-> [번들러와 빌드 도구](https://www.heropy.dev/p/x8iedW)
->
-> [Create React App 권장을 Vite로 대체하자는 PR 관련 글](https://junghan92.medium.com/%EB%B2%88%EC%97%AD-create-react-app-%EA%B6%8C%EC%9E%A5%EC%9D%84-vite%EB%A1%9C-%EB%8C%80%EC%B2%B4-pr-%EB%8C%80%ED%95%9C-dan-abramov%EC%9D%98-%EB%8B%B5%EB%B3%80-3050b5678ac8)
->
-> [Webpack 과 HMR](https://rajaraodv.medium.com/webpack-hot-module-replacement-hmr-e756a726a07)
->
-> [CRA 대신에 Vite를 쓰자는 React issue](https://github.com/reactjs/react.dev/pull/5487)
+## 출처 및 도움되는 링크들
+
+[Vite 공식 홈페이지](https://ko.vitejs.dev/guide/why.html)
+
+[번들러와 빌드 도구](https://www.heropy.dev/p/x8iedW)
+
+[Create React App 권장을 Vite로 대체하자는 PR 관련 글](https://junghan92.medium.com/%EB%B2%88%EC%97%AD-create-react-app-%EA%B6%8C%EC%9E%A5%EC%9D%84-vite%EB%A1%9C-%EB%8C%80%EC%B2%B4-pr-%EB%8C%80%ED%95%9C-dan-abramov%EC%9D%98-%EB%8B%B5%EB%B3%80-3050b5678ac8)
+
+[Webpack 과 HMR](https://rajaraodv.medium.com/webpack-hot-module-replacement-hmr-e756a726a07)
+
+[CRA 대신에 Vite를 쓰자는 React issue](https://github.com/reactjs/react.dev/pull/5487)
 
 ```toc
 
