@@ -143,6 +143,8 @@ Webpack과 같은 기존의 번들 기반 방식에서는 모든 소스코드가
 
 ### HMR (Hot Module Replacement)
 
+![11.webp](11.webp)
+
 Vite도 당연히 HMR 기능을 지원한다. 개발하면서 소스코드를 수정하면 vite는 수정된 모듈과 관련된 부분만 교체하고 브라우저에 전달한다. Native ESM을 이용하기 때문에 프로젝트 사이즈가 크더라도 HMR 시간에 영향을 주지 않아서 매우 빠르게 진행이 된다. 프론트 개발을 하다보면 HMR 기능을 정말 많이 사용할 수 밖에 없다. 보통 프론트 개발작업을 할때 소스코드 에디터, Dev Server, 브라우저 이렇게 3개는 기본적으로 열어놓고 작업을 하는데 소스코드를 수정하면 Dev Server에서 HMR이 일어나고 브라우저에서 변경된 내용을 확인한다. 그래서 Dev Server 구동보다도 훨씬 더 자주 사용하는 기능이 HMR이다. 그래서 HMR 속도가 정말 중요하다고 말할 수 밖에 없다.
 
 또한 vite는 HTTP 헤더를 활용하여 전체 페이지의 로드 속도를 높인다. 필요에 따라 소스 코드는 `304 Not Modified`로, 디펜던시는 `Cache-Control: max-age=31536000,immutable`을 이용해 캐시가 되고, 이렇게 함으로써 요청 횟수를 최소화하여 페이지 로딩을 빠르게 만들어 준다.
@@ -151,9 +153,135 @@ Vite도 당연히 HMR 기능을 지원한다. 개발하면서 소스코드를 �
 
 ## 마이그레이션 할 때 유의 사항 및 과정!
 
+CRA을 통해 부트스트래핑된 React 어플리케이션의 경우 번들링을 위해 기본 제공되는 react-scripts을 사용하는데, 이 react-scripts 라이브러리는 쉽고 간편하지만, 라이브러리 내부에서 사용되는 Webpack 번들러가 느리고 무거운 편이다.
+저희 플랫폼에서는 Webpack에 크게 의존성을 가지고 있지 않았기 때문에 굳이 Webpack(즉, react-scripts)을 고집해야 할 이유가 없어 보여서 Vite로 번들러 수정 작업을 진행했는데 혹시나 Webpack 의존도가 높은 경우는 고려해봐야 할 것 같습니다!
+
+Vite를 사용하기 위해서 CRA와의 차이점에 대해서 찾아보았는데 환경과 문법에서 차이가 있다. process.env, EJS 템플릿 문법 지원, 다양한 플러그인, 폴더와 파일의 위치 등등 이었습니다. 마이그레이션하면서 다뤄본 큰 변경점들에 대해서 간략하게 기록해보겠습니다~
+
+> 🤔 저는 문제가 없어서 기록해두지 않았습니다만, Node,Vite 버전 호환성과 디렉터리 구조등을 생각해봐야 됩니다! 호환성은 각자의 환경에 따라 다르니 참고용으로만 봐주세요~!
+
+<br>
+
+### process.env 호환성
+
+Vite는 import.meta.env 객체를 이용해 환경 변수에 접근할 수 있고, 이러한 환경 변수는 `VITE_SOME_KEY=123`처럼 VITE\_라는 접두사를 붙여 선언해야 된다.
+
+> 🚨 사내에서 Cypress로 테스트 코드를 작성하는데 import.meta.env를 통한 환경 변수 접근이 잘 작동하지 않는 이슈가 있어서, process.env를 통해서도 환경 변수를 참조할 수 있도록 호환성을 추가하는 작업을 진행했습니다. 관련한 정보는 [Vite Issue](https://github.com/vitejs/vite/issues/1149#issuecomment-857686209) 확인해보시면 좋을 것 같습니다.
+
+<br>
+
+### EJS 템플릿 문법을 위한 플러그인 추가 및 변경
+
+CRA에서는 기본적으로 [EJS 템플릿 문법](https://ccusean.tistory.com/entry/Express-%ED%85%9C%ED%94%8C%EB%A6%BF-%EC%97%94%EC%A7%84-ejs-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0)을 지원하는 반면, Vite에서는 EJS 플러그인을 추가해주어야 템플릿 문법을 사용할 수 있습니다. 이를 위해 vite-plugin-ejs 패키지를 설치하고, 다음과 같이 플러그인을 적용해두었습니다.
+
+```typescript
+plugins: [
+      ViteEjsPlugin({
+        // 여기에는 사용하고자 하는 변수를 선언해주면 됩니다. 예컨대,
+        exampleVar: import.meta.env?.VITE_EXAMPLE_VAR || null,
+      }),
+    ],
+```
+
+그리고 Vite에서 지원하지 않는 기능을 사용하기 위해서 플러그인을 추가했습니다. (23.06.02에는 적용이 안되었는데 지금은 적용이 될 수 있습니다.)
+
+- vite-plugin-svgr: SVG 그래픽을 리액트 컴포넌트처럼 사용하기 위한 플러그인
+- vite-plugin-eslint: ESLint와 관련된 오류를 알려주는 플러그인
+- vite-tsconfig-paths: tsconfig.json에 정의된 paths 매핑을 사용하기 위한 플러그인
+
+> 추가로 사내 프로젝트에 Jqeury가 있어서 @rollup/plugin-inject을 사용하고 있습니다. 이 플러그인은 코드 번들링 과정 중에 지정된 변수를 주입하여 코드를 변경하는 데 사용되고, jQuery를 $ 및 jQuery 변수로 주입하여 전역으로 사용할 수 있도록 해주고 있습니다. ~~제거해야되는데!!!!!!!~~
+
+CRA 에서 Vite로 플러그인과 함께 알아보니 지원되는 것이 많다는 것을 알게되었네요..ㅋㅋ
+
+<br>
+
+### index.html 수정 및 경로 변경
+
+vite는 개발모드에서 ESBuild를 사용하기 때문에 추가 번들링 없이 index.html 파일이 앱의 진입점이 되도록 변경했다. 그렇기 때문에 public 폴더에 위치해 있는 index.html 파일을 프로젝트 최상단에 위치하도록 이동시키고, Vite는 CRA와 다른 메커니즘으로 assets를 다루기 때문에 index.html 파일에 포함된 `%PUBLIC_URL%` 경로는 모두 지워준다. 그 후 파일의 `<body>` 를 아래와 같이 수정해주면 됩니다!
+
+```typescript
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id='root'></div>
+  <script type='module' src='/src/index.jsx'></script>
+</body>
+```
+
+<br>
+
+### config 수정
+
+vite.config.ts 와 tsconfig.json을 루트 디렉토리에 만들어주고 세부설정을 추가해주면 된다. 사내에서 사용하는 설정이여서 공개하기는 염려되기 때문에 몇가지 설정만 공유해볼려고 한다.
+
+- **vite.config.ts**
+  - 터미널 명령어로 script를 실행했을 때 변경 될 환경들을 defineConfig로 정의한다.(sentry, sourceMaps, version, branch)
+  - build에 연관 되어있는 react-router-dom과 assets 폴더의 chunkFile 생성에 관여한다.
+  - Module Alias를 설정해서 긴 경로에 별칭을 사용할 수 있도록 지정한다.
+- **tsconfig.json**
+
+```json
+{
+  "compilerOptions": {
+    "experimentalDecorators": true, //클래스 및 클래스 멤버에 메타데이터를 추가를 위한 실험적 데코레이터(decorator) 문법을 활성
+    "target": "ESNext", // TypeScript가 생성하는 JavaScript 코드의 ECMAScript 목표 버전을 지정하는데, 여기서는 "ESNext"를 지정하여 가장 최신의 ECMAScript 표준을 대상으로 컴파일하도록 설정되어 있다.
+    "lib": ["dom", "dom.iterable", "esnext"], // 컴파일러가 사용할 라이브러리를 지정하는데, 여기서는 DOM 및 ESNext와 함께 dom.iterable도 사용하고 이것은 컴파일러가 코드에서 사용되는 기능 및 API에 대한 정적 검사와 IntelliSense를 제공하기 위해서 사용한다.
+    "types": ["vite/client", "vite-plugin-svgr/client"], // 프로젝트에서 사용하는 타입 정의 파일을 지정하는데, 여기서는 Vite와 SVGR 관련 타입 정의 파일을 명시
+    "baseUrl": "./src", // 상대 모듈 참조 및 별칭을 해결할 기본 경로를 설정하는데, 여기서는 ./src 폴더를 기본 경로로 설정하고 있다.
+    "allowJs": true, // JavaScript 파일을 컴파일할 수 있도록 허용하는 옵션
+    "skipLibCheck": true, // 리이브러리 파일의 검사를 건너뛰도록 설정
+    "esModuleInterop": true, // ES 모듈을 CommonJS 모듈과 상호 운용할 수 있도록 설정
+    "allowSyntheticDefaultImports": true, // import 문에서 default를 사용할 수 있도록 허용
+    "strict": true, // 엄격한 타입 검사 옵션을 활성화
+    "forceConsistentCasingInFileNames": true, // 파일 이름의 일관된 대소문자를 강제하기 위해서 사용
+    "noFallthroughCasesInSwitch": true, // switch 문에서의 case 절에 대한 fall-through를 허용하지 않기 위해서 사용
+    "module": "ESNext", //  모듈 코드 생성 방식을 지정하는데, 여기서는 "ESNext"로 설정
+    "moduleResolution": "node", // 모듈 해결 방식을 설정하는데, 여기서는 "node"로 설정
+    "resolveJsonModule": true, // JSON 파일을 모듈로 불러올 수 있도록 설정
+    "isolatedModules": true, // 파일 간의 독립적인 컴파일을 활성화
+    "noEmit": true, // 컴파일 결과물을 생성하지 않도록 설정
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "strictNullChecks": false,
+    // noImplicitAny, noImplicitReturns, strictNullChecks은 TypeScript의 엄격한 타입 검사 관련 옵션들을 설정
+    "jsx": "react-jsx" // JSX 파일의 파싱 방법을 설정하는데, 여기서는 "react-jsx"로 설정되어 있으므로 React의 JSX 문법을 사용할 수 있음
+  },
+  "include": ["src"]
+}
+```
+
+<br>
+
+### 해치웠나..?
+
+![13.jpeg](13.jpeg)
+
+<br>
+
+이 정도면 얼추 CRA에서 Vite로 변경하는 데에 큰 문제는 없었다. 하지만 생각하지 못한 문제들이 너무 많았다. 라이브러리, node 버전(사내에서는 Back-End가 node.js 기반이어서 더 신경을 써야 됐는데...) 등등... 여러분들은 이런 실수없어서 순탄한 마이그레이션을 했으면 좋겠다!!
+
+참고로 위 과정에서 dependencies를 수정해줘야 되고, react-scripts 처럼 사용하지 않는 모듈을 삭제해 줘야 된다. 꼭 확인해서 불필요한 모듈을 지워주면 좋겠다!
+
+<br>
+
 ## 그 다음은 어떤 것이 더 필요할까?
 
-## 결론!
+우여곡절 끝에 마이그레이션에 성공했다! 과정은 짧아 보이지만... 엄청 시간이 오래 걸렸다. ~~잘 알아보지 않아서.. 특히 BE와.. 라이브러리 호환성.. 등등~~ 작업을 하고 나서 피드백을 해보았다 빌드시간이 평균 40% 정도 줄었고 모듈 해석 속도가 향상되고 HMR 덕분에 개발 생산성을 향상했다. 점차 플러그인 생태계가 Vite에 적합하게 발전함에 따라 프로젝트가 안정성을 찾지 않을까 하는 기대가 있다.
+
+이후에는 어떤 것을 다뤄야 될까? 라는 고민을 잠깐해보았는데 변화된 생태계에 맞추고 프로젝트 안정성을 높이기 위해서 테스트 작성과 캐싱, 프리픽싱 설정을 하고 여러가지 플러그인에 대해서 알아 볼 예정이다!
+
+<hr>
+
+> <h4>출처 및 도움되는 링크들</h4>
+>
+> [Vite 공식 홈페이지](https://ko.vitejs.dev/guide/why.html)
+>
+> [번들러와 빌드 도구](https://www.heropy.dev/p/x8iedW)
+>
+> [Create React App 권장을 Vite로 대체하자는 PR 관련 글](https://junghan92.medium.com/%EB%B2%88%EC%97%AD-create-react-app-%EA%B6%8C%EC%9E%A5%EC%9D%84-vite%EB%A1%9C-%EB%8C%80%EC%B2%B4-pr-%EB%8C%80%ED%95%9C-dan-abramov%EC%9D%98-%EB%8B%B5%EB%B3%80-3050b5678ac8)
+>
+> [Webpack 과 HMR](https://rajaraodv.medium.com/webpack-hot-module-replacement-hmr-e756a726a07)
+>
+> [CRA 대신에 Vite를 쓰자는 React issue](https://github.com/reactjs/react.dev/pull/5487)
 
 ```toc
 
