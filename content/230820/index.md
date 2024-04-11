@@ -1,5 +1,5 @@
 ---
-emoji: 🧑🏻‍💻
+emoji: 🧐
 title: 'All in one useState'
 date: '2023-08-20'
 categories: Front-end

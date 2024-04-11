@@ -1,5 +1,5 @@
 ---
-emoji: 🧑🏻‍💻
+emoji: 🥳
 title: 'AWS Summit 2023 - Day1'
 date: '2023-05-03'
 categories: Community

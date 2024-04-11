@@ -1,5 +1,5 @@
 ---
-emoji: 🧑🏻‍💻
+emoji: 📚
 title: '점핏 FE 북콘테스트'
 date: '2023-04-30'
 categories: Community
