@@ -5,7 +5,7 @@ date: '2024-04-09'
 categories: Front-end
 ---
 
-<img src="/assets/loading.jpeg">
+작성중...
 
 <!--
 ## 웹 렌더링 방식들 비교해보자
