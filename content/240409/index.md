@@ -5,6 +5,9 @@ date: '2024-04-09'
 categories: Front-end
 ---
 
+<img src="/assets/loading.jpeg">
+
+<!--
 ## 웹 렌더링 방식들 비교해보자
 
 <br>
@@ -57,7 +60,7 @@ categories: Front-end
 
 ## 출처 및 도움되는 링크들
 
-[콥 노트의 CSR vs SSR vs SSG](https://ajdkfl6445.gitbook.io/study/web/csr-vs-ssr-vs-ssg)
+[콥 노트의 CSR vs SSR vs SSG](https://ajdkfl6445.gitbook.io/study/web/csr-vs-ssr-vs-ssg) -->
 
 ```toc
 
