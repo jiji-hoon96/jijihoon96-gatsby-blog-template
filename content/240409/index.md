@@ -2,12 +2,9 @@
 emoji: 🧐
 title: '웹 렌더링 방식들의 모든 것'
 date: '2024-04-09'
-categories: Front-end
+categories: Front-end ignore
 ---
 
-작성중...
-
-<!--
 ## 웹 렌더링 방식들 비교해보자
 
 <br>
@@ -60,7 +57,7 @@ categories: Front-end
 
 ## 출처 및 도움되는 링크들
 
-[콥 노트의 CSR vs SSR vs SSG](https://ajdkfl6445.gitbook.io/study/web/csr-vs-ssr-vs-ssg) -->
+[콥 노트의 CSR vs SSR vs SSG](https://ajdkfl6445.gitbook.io/study/web/csr-vs-ssr-vs-ssg)
 
 ```toc
 
