@@ -7,6 +7,10 @@ categories: Front-end
 
 <br>
 
+> 🚨 해당 게시글은 [브라우저 렌더링의 모든 것](https://hooninedev.com/240329/)의 후편이니 읽고 오시면 이해가 더 잘됩니다!!
+
+<br>
+
 ![1.png](1.png)
 
 <br>
