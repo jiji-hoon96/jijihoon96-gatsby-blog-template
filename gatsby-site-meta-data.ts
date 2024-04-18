@@ -22,8 +22,8 @@ export default {
    */
   author: {
     name: `이지훈`,
-    nickname: `후니네`,
-    stack: ['React', 'Typescript', '만두'],
+    nickname: `후니`,
+    stack: ['React', 'Typescript', 'Javascript', 'Zustand', '만두'],
     bio: {
       email: `jihoon7705@gmail.com`,
       residence: 'Seoul, South Korea',

@@ -27,7 +27,7 @@ const MainBanner: React.FC<MainBannerProps> = ({ author }) => {
           </strong>
           <span>를 좋아하는</span>
           <br />
-          프론트엔드 개발자{' '}
+          주니어 프론트엔드 개발자 <br />
           <strong>
             <ReactRotatingText items={[name, nickname]} />
           </strong>
