@@ -3,8 +3,6 @@ import ReactRotatingText from 'react-rotating-text';
 
 import { Author } from '@/src/type';
 
-import BuyMeACoffee from '../BuyMeACoffee';
-import Image from '../Image';
 import * as S from './styled';
 
 type MainBannerProps = {

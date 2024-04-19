@@ -2,7 +2,7 @@
 emoji: 🧐
 title: '웹 렌더링 방식들의 모든 것'
 date: '2024-04-09'
-categories: Front-end
+categories: 프론트엔드
 ---
 
 <br>

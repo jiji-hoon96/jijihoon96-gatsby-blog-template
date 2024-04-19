@@ -44,16 +44,20 @@ export default {
    */
   featured: [
     {
-      title: 'Front-end',
-      category: 'Front-end',
+      title: '프론트엔드',
+      category: '프론트엔드',
     },
     {
-      title: 'Community',
-      category: 'Community',
+      title: '소박한궁금증',
+      category: '소박한궁금증',
     },
     {
-      title: 'Life',
-      category: 'Life',
+      title: '대외활동',
+      category: '대외활동',
+    },
+    {
+      title: '일상',
+      category: '일상',
     },
   ],
 

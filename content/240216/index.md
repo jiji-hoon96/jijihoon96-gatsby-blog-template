@@ -2,7 +2,7 @@
 emoji: 🪝
 title: '새롭게 도입될 React 19 hooks에 대해 알아보자'
 date: '2024-02-16'
-categories: Front-end React
+categories: 프론트엔드 React
 ---
 
 ![react-hooks](1.png)

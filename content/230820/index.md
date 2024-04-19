@@ -2,7 +2,7 @@
 emoji: 🧐
 title: 'All in one useState'
 date: '2023-08-20'
-categories: Front-end
+categories: 프론트엔드
 ---
 
 ## 함수형 컴포넌트의 상태 관리

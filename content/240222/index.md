@@ -2,7 +2,7 @@
 emoji: 🙋🏻‍♂️
 title: 'Hi zustand'
 date: '2024-02-22'
-categories: Front-end
+categories: 프론트엔드
 ---
 
 ![1.jpeg](1.jpeg)

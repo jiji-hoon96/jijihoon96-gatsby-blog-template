@@ -2,7 +2,7 @@
 emoji: 👣
 title: '행군보다 힘들었던 자동화 배포까지의 고난길'
 date: '2024-02-27'
-categories: Front-end DevOps
+categories: 프론트엔드 DevOps
 ---
 
 ![3.png](3.png)

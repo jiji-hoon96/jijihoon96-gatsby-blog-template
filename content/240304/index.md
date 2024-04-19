@@ -2,7 +2,7 @@
 emoji: 👋
 title: 'Good bye CRA, Hello Vite'
 date: '2024-03-04'
-categories: Front-end
+categories: 프론트엔드
 ---
 
 ## CRA(Create React App)
