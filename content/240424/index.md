@@ -1,6 +1,6 @@
 ---
 emoji: 💡
-title: 'LinkedList? ArrayList'
+title: 'LinkedList? ArrayList?'
 date: '2024-04-24'
 categories: 소박한궁금증 자료구조
 ---
