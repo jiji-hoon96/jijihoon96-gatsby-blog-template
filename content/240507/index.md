@@ -25,7 +25,71 @@ categories: 멘토링 자바스크립트
 
 **얕은 복사(Shallow Copy)는** 원본 객체의 최상위 수준의 속성들을 복사하고, 내부의 객체는 참조를 공유한다. 즉, 내부 객체에 대한 변경은 복사된 객체와 원본 객체 양쪽에 모두 영향을 주고, 최상위 수준의 속성이 필요한 경우에 사용한다.
 
-**깊은 복사(Deep Copy)는** 원본 객체의 모든 속성들을 재귀적으로 복사해 원본 객체와 완전한 독립이다. 내부 객체까지 새로운 객체로 복사되어, 다른 객체에 영향을 주지 않고 복잡한 구조를 가진 객체를 다루기위해 사용한다.
+- Object.assign()을 이용한 얕은 복사
+
+```javascript
+const item = {
+  a: '메론',
+  price: {
+    small: '20000',
+    large: '30000',
+  },
+};
+
+const copyItem = Object.assign({}, item);
+copyItem.price.small = '22000';
+
+console.log(item === copyItem); // false
+console.log(item.price.small === copyItem.price.small); //true
+```
+
+- Spread 연산자를 이용한 얕은 복사
+
+```javascript
+const item = {
+  a: '메론',
+  price: {
+    small: '20000',
+    large: '30000',
+  },
+};
+
+const copyItem = { ...item };
+
+console.log(item === copyItem); // false
+console.log(item.price.small === copyItem.price.small); //true
+```
+
+<br>
+
+**깊은 복사(Deep Copy)는** 원본 객체의 모든 속성들을 재귀적으로 복사해 원본 객체와 완전한 독립이다.(원본과의 참조가 완전히 끊어진 객체) 내부 객체까지 새로운 객체로 복사되어, 다른 객체에 영향을 주지 않고 복잡한 구조를 가진 객체를 다루기위해 사용한다.
+
+- JSON.parse, JSON.stringify를 이용한 깊은 복사
+
+```javascript
+const item = {
+  a: '메론',
+  price: {
+    small: '20000',
+    large: '30000',
+  },
+  place: ['강남점', '역삼점', '송파점'],
+};
+
+const copyItem = JSON.parse(JSON.stringify(item));
+
+copyItem.price.small = '24000';
+copyItem.place.push('잠실점');
+
+console.log(item === copyItem); //false
+console.log(item.price.small === copyItem.price.small); //false
+console.log(item.place === copyItem.place); //false
+console.log(item); // {"a": "메론","price": {"small": "20000","large": "30000"},"place": ["강남점","역삼점","송파점"]}
+console.log(copyItem); // {"a": "메론","price": {"small": "24000","large": "30000"},"place": ["강남점","역삼점","송파점","잠실점"]}
+```
+
+- 재귀 함수를 이용해 깊은 복사
+- lodash 라이브러리 **[cloneDeep 사용](https://lodash.com/docs/4.17.15#cloneDeep)** 해서 깊은 복사
 
 <br>
 
@@ -197,7 +261,9 @@ myFunc(); // 출력: "Hello, world!"
 
 ## 5월 첫째 주 회고
 
-좋은 점, 반성할 점, 진행하고 있는 부분 등에 대해서 다양하게 기록해보고 피드백해 보자
+메타인지를 위해서 자기평가를 진행해보았다. 내가 어떠한 사람이 되고 싶을까? 생각했을 때 모든 형태가 고르게 있는 것도 중요하겠지만 기술적인 부분과 팀 내부의 역할(역량)을 키우는 것이 내 성향에 적합하다고 생각한다. 이런 부분을 잘 기억하고, 다짐해보며 첫 주 회고록을 진행해보겠다!
+
+![4.png](4.png)
 
 ### 이번 주 좋은 것과 나쁜 것
 
