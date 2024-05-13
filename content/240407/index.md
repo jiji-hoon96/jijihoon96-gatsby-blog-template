@@ -2,7 +2,7 @@
 emoji: U
 title: '[IT 커뮤니티 연합 해커톤] 유니톤 11회 참가 후기'
 date: '2024-04-07'
-categories: 일상
+categories: 대외활동
 ---
 
 ## ✋ Welcome Unithon

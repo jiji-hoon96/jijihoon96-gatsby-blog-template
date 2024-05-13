@@ -2,7 +2,7 @@
 emoji: 📚
 title: 'SIPE 1차 미션 & YouDontKnowJS 후기'
 date: '2024-05-09'
-categories: 멘토링 자바스크립트
+categories: 대외활동
 ---
 
 나는 SIPE라는 IT 동아리에서 1차 미션으로 **YouDontKnowJS** 라는 책을 읽고, **React의 hook의 작동원리에 대해서** 스터디하고 있다. 5주 정도 시간이 흘러 그동안 공부한 내용들을 정리해보려고 한다.

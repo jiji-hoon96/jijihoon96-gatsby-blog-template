@@ -2,7 +2,7 @@
 emoji: 💭
 title: 'useEffect의 dependency로 useRef가 들어가면!?'
 date: '2024-04-19'
-categories: 소박한궁금증 프론트엔드
+categories: 소박한궁금증 React
 ---
 
 <br>
