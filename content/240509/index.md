@@ -225,7 +225,7 @@ function useEffectOnce(effect) {
 
 <br>
 
-## 아 그리고..
+## 아 그리고.. 번외로!
 
 나 생각해보니까 5주동안 동아리에서 이것저것 많이 했어요.. 사이프 공식 행사도 진행하고, 진짜 아티클도 많이 읽고 책도 읽고!!! 제가 위 주제로 사이프 1차 미션을 진행하면서 읽은 아티클 링크 걸어두겠습니다! 그중에 좋다고 생각하는 것들 따로 표시해놓을 거니깐 꼭 읽어보세여~!!
 
@@ -243,7 +243,7 @@ function useEffectOnce(effect) {
 
 ### closure
 
-사실 내가 클로저를 공부하면서 느낀 부분 중 하나는 생각보다 다양한 곳에서 쓰고 있다라는 것을 알게 되었다. 그리고 작년 10월쯤 파랑님의 스터디에서 커링이라는 개념에 대해서 들은 적 있는데 해당 개념이 클로저의 원리를 잘 사용한 문법이라고 생각해서 재미있는 샘플 코드를 작성해두니 꼭 해보시면 좋겠다!
+사실 내가 클로저를 공부하면서 느낀 부분 중 하나는 생각보다 다양한 곳에서 쓰고 있다라는 것을 알게 되었다. 그리고 작년 10월쯤 파랑님의 스터디에서 **커링** 이라는 개념에 대해서 들은 적 있는데 해당 개념이 클로저의 원리를 잘 사용한 문법이라고 생각해서 재미있는 샘플 코드를 작성해두니 꼭 해보시면 좋겠다!
 
 ```javascript
 let dev = 'bfe';
@@ -265,6 +265,54 @@ a()(); // "BFE"
 왜냐하면 클로저는 함수 실행이 완료된 후에도 함수 내부의 반환 함수가 함수 변수 dev = BFE에 대한 참조를 유지하도록 함수 a가 정의될 때 생성되기 때문이다. 위 코드에서 let을 사용하여 선언된 dev라는 외부 변수도 있는데, 이 변수는 나중에 bigfrontend에 재할당된다.
 
 그러나 a()() 커링함수를 실행할 때 외부 dev 값 bigfrontend에 관계없이 클로저 값 "BFE"를 로깅하고 있기 때문에 "BEF"가 출력된다.
+
+<br>
+
+### closure을 이용한 데이터 은닉화
+
+```javascript
+var Account = (function () {
+  var balance = 0;
+
+  function checkIsPositive(amount) {
+    if (typeof amount !== 'number' || amount <= 0) {
+      throw new Error('Invalid amount');
+    }
+  }
+
+  return {
+    deposit: function (amount) {
+      checkIsPositive(amount);
+      balance += amount;
+      console.log('Deposit:', amount);
+    },
+    withdraw: function (amount) {
+      checkIsPositive(amount);
+      if (balance >= amount) {
+        balance -= amount;
+        console.log('Withdraw:', amount);
+      } else {
+        console.log('Insufficient funds');
+      }
+    },
+    getBalance: function () {
+      return balance;
+    },
+  };
+})();
+
+console.log('Current Balance:', Account.getBalance()); // 0
+Account.deposit(100);
+console.log('Current Balance:', Account.getBalance()); // 100
+Account.withdraw(50);
+console.log('Current Balance:', Account.getBalance()); // 50
+```
+
+이 코드에서 Account 모듈은 클로저를 사용하여 balance 변수를 숨기고, deposit, withdraw, getBalance 메서드를 통해 이 변수에만 접근할 수 있도록 할 수 있다.
+
+이렇게 함으로써 외부에서 balance 변수를 직접 수정하는 것을 방지하고, 데이터를 안전하게 은닉할 수 있다.
+
+**모듈은** 관련 있는 기능을 묶어서 캡슐화하고, 외부에는 필요한 인터페이스만 노출하여 사용자가 쉽게 사용할 수 있도록 하는 것을 의미하는데, 모듈 패턴은 프로그램을 더 모듈화하고 유지보수하기 쉽게 만들어주는 디자인 패턴 중 하나로 코드의 재사용성을 높이고, 의도치 않은 상태 변화나 충돌을 방지할 수 있다.
 
 <br>
 
