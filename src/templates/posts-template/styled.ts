@@ -40,7 +40,6 @@ export const TabWrapper = styled.div`
 
 export const Tabs = styled.div`
   display: flex;
-  justify-content: center;
   width: 100%;
   max-width: ${contentMaxWidth} + 40px;
   margin-bottom: 12px;
