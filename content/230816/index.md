@@ -1,6 +1,6 @@
 ---
 emoji: 🧑🏻‍💻
-title: '자바스크립트 동기와 비동기 모든 것'
+title: 'JavaScript 동기와 비동기 완벽 가이드'
 date: '2023-08-16'
 categories: 프론트엔드 자바스크립트
 ---

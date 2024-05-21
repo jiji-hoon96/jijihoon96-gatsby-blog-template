@@ -1,6 +1,6 @@
 ---
 emoji: 💭
-title: 'useEffect의 dependency로 useRef가 들어가면!?'
+title: 'useEffect의 Dependency로 useRef를 사용해보자!'
 date: '2024-04-19'
 categories: 소박한궁금증 React
 ---

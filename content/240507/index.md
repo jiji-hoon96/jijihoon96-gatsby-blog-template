@@ -1,6 +1,6 @@
 ---
 emoji: 🧑🏻‍🏫
-title: '멘토링 1회차 복습'
+title: '비전공 1년차 프론트엔드 개발자의 멘티 생활기: 1주차) 으아 떨려...'
 date: '2024-05-07'
 categories: 멘토링 자바스크립트
 ---
@@ -346,6 +346,10 @@ myFunc(); // 출력: "Hello, world!"
 <br>
 
 ![3.jpeg](3.jpeg)
+
+## 출처 및 도움되는 링크들
+
+- [thumb-hyeok님의 리엑트 불변성](https://velog.io/@thumb_hyeok/%EB%A6%AC%EC%95%A1%ED%8A%B8%EC%97%90-%EB%B6%88%EB%B3%80%EC%84%B1%EC%9D%B4-%EC%99%9C-%ED%95%84%EC%9A%94%ED%95%A0%EA%B9%8C)
 
 ```toc
 

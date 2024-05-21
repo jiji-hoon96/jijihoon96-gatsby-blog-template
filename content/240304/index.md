@@ -1,6 +1,6 @@
 ---
 emoji: 👋
-title: 'Good bye CRA, Hello Vite'
+title: 'Good bye CRA, Hello Vite For Migration'
 date: '2024-03-04'
 categories: 프론트엔드 React
 ---

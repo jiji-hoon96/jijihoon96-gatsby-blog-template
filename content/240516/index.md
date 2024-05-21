@@ -1,6 +1,6 @@
 ---
 emoji: 🧑🏻‍🏫
-title: '멘토링 2회차 복습'
+title: '비전공 1년차 프론트엔드 개발자의 멘티 생활기: 2주차) 복습의 지옥'
 date: '2024-05-16'
 categories: 멘토링 자바스크립트
 ---
@@ -234,6 +234,7 @@ Javascript에서 기본 데이터 타입을 제외한 모든 것이 객체다. �
 - [자바스크립트 클래스와 프로토타입의 이해 - Flab](https://f-lab.kr/insight/understanding-javascript-class-and-prototype)
 - [evan님의 프로토타입 정리](https://evan-moon.github.io/2019/10/23/js-prototype/)
 - [Steady-Dev의 실행 컨텍스트](https://www.datoybi.com/execution-context/)
+- [thumb-hyeok님이 프로토타입 장점](https://velog.io/@thumb_hyeok/%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85%EC%9D%98-%EC%9E%A5%EC%A0%90%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C)
 
 ```toc
 

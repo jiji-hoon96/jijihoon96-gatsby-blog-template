@@ -1,6 +1,6 @@
 ---
 emoji: 🥳
-title: 'AWS Summit 2023 - Day2'
+title: 'AWS Summit Seoul 2023 - Day2에 다녀와서'
 date: '2023-05-03'
 categories: 대외활동
 ---

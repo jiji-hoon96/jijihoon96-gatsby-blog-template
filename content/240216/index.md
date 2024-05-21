@@ -1,6 +1,6 @@
 ---
 emoji: 🪝
-title: '새롭게 도입될 React 19 hooks에 대해 알아보자'
+title: 'React 19의 새로운 Hooks 완벽 가이드를 읽고 변경될 React를 맞이해보자'
 date: '2024-02-16'
 categories: 프론트엔드 React
 ---
