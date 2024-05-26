@@ -103,7 +103,7 @@ testMyPromise().then((value) => console.log(value));
 
 <br>
 
-### 간단하게 then, catch, resolve, reject 함수를 만들어보자
+### then, catch, resolve, reject 함수를 추가해보자
 
 ```javascript
 class MyPromise {
@@ -153,11 +153,430 @@ resolve, reject, then, catch를 구현해서 메서드 체이닝이 일어날 �
 
 위 코드에서 궁금한 점은 executor 내부에 bind 메서드를 사용했다는 점이다. 현재 bind 메서드를 사용했기 때문에 this는 항상 MyPromise 인스턴스를 가리킨다. 사용하지 않으면 resolve, reject 메서드를 호출할 때 this가 바뀔 수 있고, 특히 콜백함수에서 차이가 크게 날 수 있기 때문에 **bind 메서드로 강제로 특정 객체를 지정**하도록 해야 한다.
 
-아직도 비동기, 상태 관리 메서드 생성, Error Handling이 부족하다. 다음 세션에서 더 보완해보자.
+```javascript
+function testMyPromise(input) {
+  return new MyPromise((resolve, reject) => {
+    if (input === 1) {
+      resolve('정상적입니다');
+    }
+    reject('입력값이 1이 아닙니다');
+  });
+}
+
+testMyPromise(1)
+  .then((value) => console.log(value))
+  .catch((error) => console.log(error));
+
+// 입력값이 1이 아닙니다
+// 입력값이 1이 아닙니다
+```
+
+위 코드를 추가해서 실행해보면 then구문과 catch구문 모두 실행된다. 그리고 비동기, 상태 관리 메서드 생성, Error Handling이 부족하다. 다음 세션에서 상태를 추가해 코드를 더 보완해보자.
 
 <br>
 
 ### Promise 상태를 추가해 동작 구현해보자.
+
+```javascript
+const PROMISES_STATE = Object.freeze({
+  pending: 'PENDING',
+  fulfilled: 'fulfilled',
+  rejected: 'rejected',
+});
+
+class MyPromise {
+  #value = null;
+  #state = PROMISES_STATE.PENDING;
+
+  constructor(executor) {
+    try {
+      executor(this.#resolve.bind(this), this.#reject.bind(this));
+    } catch (error) {
+      this.#reject(error);
+    }
+  }
+
+  #resolve(value) {
+    this.#state = PROMISES_STATE.fulfilled;
+    this.#value = value;
+  }
+
+  #reject(error) {
+    this.#state = PROMISES_STATE.rejected;
+    this.#value = error;
+  }
+
+  then(callback) {
+    if (this.#state === PROMISES_STATE.fulfilled) {
+      callback(this.#value);
+    }
+
+    return this;
+  }
+
+  catch(callback) {
+    if (this.#state === PROMISES_STATE.rejected) {
+      callback(this.#value);
+    }
+
+    return this;
+  }
+}
+
+function myPromiseFn2(input) {
+  return new MyPromise((resolve, reject) => {
+    if (input === 1) {
+      resolve('성공');
+    } else {
+      reject('실패');
+    }
+  });
+}
+
+myPromiseFn2(1)
+  .then((v) => {
+    console.log(v);
+    return '체이닝 확인';
+  })
+  .then((v) => console.log(v))
+  .catch((v) => console.log(v));
+```
+
+위 코드에서 **Object.freeze를 이용해 객체를 동결**했다. 이로서 객체 속성 추가,삭제,변경이 불가능해져서, 객체가 항상 일정한 상태 값을 갖도록 보장한다.
+
+코드를 실행해보면 resolve를 통해 then으로 이동하게 되어 '성공'이 출력되고, '체이닝 확인'이 출력될 것 같지만, '성공'이 두번 출력이 된다. 이것은 then 함수에 리턴값이 변경되지 않았기때문이다.
+
+```javascript
+  then(callback) {
+    if (this.#state === PROMISES_STATE.fulfilled) {
+      return new MyPromise((resolve) => resolve(callback(this.#value)));
+    }
+  }
+
+```
+
+then, catch 메소드를 위처럼 변경해 My Promise 객체 인스턴스를 then 메서드의 리턴값으로 설정해 프로미스 체이닝이 가능하도록 구현했다.
+
+<br>
+
+### 비동기 구현(then 함수만)
+
+```javascript
+function myPromiseFn2(input) {
+  return new MyPromise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(`이것은 ${input}초뒤에 실행됩니다.`);
+    }, 3000);
+  });
+}
+```
+
+myPromise 내부에 setTimeout을 이용해서 코드를 실행해보면 아래와 같이 오류가 발생한다. myPromiseFn2()를 실행시키면 3초 뒤에 resolve함수가 실행됨으로 then에 대한 리턴값이 undefined가 되기 때문이다.
+
+![2.png](2.png)
+
+그래서 비동기를 구현하려면 어떻게 해야될까?
+
+우리는 Promise를 사용할 때 pending 상태를 두어 대기(비동기)를 하고, fulfilled 상태로 변경이 되면 동기가 된다. 위 내용을 코드에 적용해보자
+
+```javascript
+class MyPromise {
+  #state = PROMISES_STATE.pending;
+
+  #value = null;
+
+  #lastCallBacks = [];
+
+  constructor(executor) {
+    try {
+      executor(this.#resolve.bind(this), this.#reject.bind(this));
+    } catch (error) {
+      this.#reject(error);
+    }
+  }
+
+  #resolve(value) {
+    this.#state = PROMISES_STATE.fulfilled;
+    this.#value = value;
+    this.#lastCallBacks.forEach((lastcall) => lastcall());
+  }
+
+  #reject(error) {
+    this.#state = PROMISES_STATE.rejected;
+    this.#value = error;
+    this.#lastCallBacks.forEach((lastcall) => lastcall());
+  }
+
+  #asyncResolve(callback) {
+    if (this.#state === PROMISES_STATE.pending) {
+      return new MyPromise((resolve) => this.#lastCallBacks.push(() => resolve(callback(this.#value))));
+    }
+
+    return null;
+  }
+
+  #syncResolve(callback) {
+    if (this.#state === PROMISES_STATE.fulfilled) {
+      return new MyPromise((resolve) => resolve(callback(this.#value)));
+    }
+
+    return null;
+  }
+
+  then(callback) {
+    return this.#asyncResolve(callback) || this.#syncResolve(callback);
+  }
+
+  catch(callback) {
+    if (this.state === PROMISES_STATE.rejected) {
+      callback(this.#value);
+    }
+
+    return this;
+  }
+}
+```
+
+asyncResolve 메서드는 상태가 pending일 때 호출되어, 새로운 MyPromise 인스턴스를 반환하고, 콜백을 lastCallBacks 배열에 저장한다. 또한 syncResolve 메서드는 상태가 fulfilled일 때 호출되어, 새로운 MyPromise 인스턴스를 반환하고, 즉시 콜백을 실행한다.
+
+이후에 then 메서드를 통해 asyncResolve를 호출하여 비동기 처리를 시도하고, 실패하면 syncResolve를 호출하여 동기 처리를 시도한다. (위 코드는 클로저와 스코프의 개념을 적용해서 공부해보면 좋다.)
+
+위 코드를 실행해보면 3초 뒤에 실행이 되고, 체이닝 메서드로 이어지는 것을 확인할 수 있다.
+
+<br>
+
+### MicroTask Queue를 적용해보자
+
+MicroTask Queue를 만들기 위해서는 MacroTask Queue와 차이점, 그리고 콜스택 실행 순서에 대해 알고 있어야한다.
+
+**[해당 내용](https://hooninedev.com/230816/#%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EC%97%94%EC%A7%84v8)을** 숙지하고 아래 코드를 작성해보길 바란다.
+
+```javascript
+function myPromiseFn2() {
+  return new MyPromise((resolve, reject) => {
+    resolve('Promise 실행');
+  });
+}
+
+const test = () => {
+  console.log('첫번째 콜스택 실행');
+  setTimeout(() => console.log('태스크 큐 실행'), 0);
+
+  myPromiseFn2().then((result) => console.log(result));
+
+  console.log('두번째 콜스택 실행');
+};
+
+test();
+```
+
+예상되는 정답은 첫 번째 콜스택 실행 => 두 번째 실행 => Promise 실행 => Task Queue 실행 이지만 실제 결과는 예상과 다르게 아래처럼 실행된다
+
+![3.png](3.png)
+
+위 문제를 해결하기 위해서 **[MDN-MicroTask Queue](https://developer.mozilla.org/en-US/docs/Web/API/queueMicrotask)을** 이용해 코드를 수정해보면 예상하는 것 처럼 코드가 잘 동작 된다.
+
+![4.png](4.png)
+
+<br>
+
+### catch 함수를 구현해보자
+
+```javascript
+class MyPromise {
+  #state = PROMISES_STATE.pending;
+
+  #value = null;
+
+  #catchCallbacks = [];
+
+  #thenCallbacks = [];
+
+  constructor(executor) {
+    try {
+      executor(this.#resolve.bind(this), this.#reject.bind(this));
+    } catch (error) {
+      this.#reject(error);
+    }
+  }
+
+  #runCallbacks() {
+    if (this.#state === PROMISES_STATE.fulfilled) {
+      this.#thenCallbacks.forEach((callback) => callback(this.#value));
+      this.#thenCallbacks = [];
+    }
+
+    if (this.#state === PROMISES_STATE.rejected) {
+      this.#catchCallbacks.forEach((callback) => callback(this.#value));
+      this.#catchCallbacks = [];
+    }
+  }
+
+  #update(state, value) {
+    queueMicrotask(() => {
+      this.#state = state;
+      this.#value = value;
+      this.#runCallbacks();
+    });
+  }
+
+  #resolve(value) {
+    this.#update(PROMISES_STATE.fulfilled, value);
+  }
+
+  #reject(error) {
+    this.#update(PROMISES_STATE.rejected, error);
+  }
+
+  then(thenCallback, catchCallback) {
+    return new MyPromise((resolve, reject) => {
+      this.#thenCallbacks.push((value) => {
+        if (!thenCallback) {
+          resolve(value);
+          return;
+        }
+
+        try {
+          resolve(thenCallback(value));
+        } catch (error) {
+          reject(error);
+        }
+      });
+
+      this.#catchCallbacks.push((value) => {
+        if (!catchCallback) {
+          reject(value);
+          return;
+        }
+
+        try {
+          resolve(catchCallback(value));
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+  }
+
+  catch(catchCallback) {
+    return this.then(undefined, catchCallback);
+  }
+}
+```
+
+then 메서드는 thenCallback과 catchCallback을 받아 새로운 MyPromise를 반환한다.
+
+thenCallbacks 배열에 thenCallback을 래핑한 콜백을 추가하는데, 이 콜백은 thenCallback이 없으면 resolve를 호출하고, 예외가 발생하면 reject를 호출한다.
+
+catchCallbacks 배열에 catchCallback을 래핑한 콜백을 추가하는데, 이 콜백은 catchCallback이 없으면 reject를 호출하고, 예외가 발생하면 reject를 호출한다.
+
+catch 메서드는 동작 이후에 메서드 체이닝이 가능하도록 구현했다.
+
+```javascript
+function myPromiseFn2(input) {
+  return new MyPromise((resolve, reject) => {
+    if (input === 1) {
+      resolve('성공');
+    } else {
+      reject('실패');
+    }
+  });
+}
+
+myPromiseFn2(2)
+  .then((v) => {
+    console.log(v);
+    return v;
+  })
+  .catch((v) => {
+    console.log(v);
+    return '오류 발생!!!';
+  })
+  .then((v) => console.log(v));
+```
+
+위 예시코드를 실행해보면 **실패 => 오류 발생!!!** 이 출력된다.
+
+<br>
+
+### finally 만들어보기
+
+Settled는 Promise가 이행되거나 거부된 상태를 포괄적으로 표현하는 단어로, Promise가 더 이상 pending 상태가 아닌 상태를 말한다.
+
+finally 메서드를 구현하기 위해 fulfilled, rejected 상태일 때 동작하도록 아래 코드를 추가해보자.
+
+```javascript
+finally(callback) {
+    return this.then(
+      (value) => {
+        callback();
+        return value;
+      },
+      (value) => {
+        callback();
+        throw value;
+      }
+    );
+  }
+```
+
+<br>
+
+### 추가적인 예외처리 기능 구현
+
+then(callback)의 callback 함수 내부에서 새로운 Promise를 만들어 return 하는 코드를 아래처럼 만들어 실행해보자. 예상하는 결과 값은 **첫번째 Promise => 두 번째 Promise**이다
+
+```javascript
+new MyPromise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('첫 번째 Promise');
+  }, 1000);
+})
+  .then((res) => {
+    console.log(res);
+    return new MyPromise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('두 번째 Promise');
+      }, 1000);
+    });
+  })
+  .then((res) => {
+    console.log(res);
+  });
+```
+
+하지만 결과 값은 두 번째 Promise가 아닌 MyPromise 객체가 출력되었다.
+
+이것을 예상하는 것처럼 출력시키기 위해서는 **#update 내부에 지연 실행**을 추가해줘야한다.
+
+```javascript
+ #update(state, value) {
+    queueMicrotask(() => {
+      if (this.#state !== PROMISES_STATE.pending) return;
+      if (value instanceof MyPromise) {
+        value.then(this.#resolve.bind(this), this.#reject.bind(this));
+        return;
+      }
+      this.#state = state;
+      this.#value = value;
+      this.#runCallbacks();
+    });
+  }
+```
+
+<br>
+
+## 으아 험난했다..
+
+![5.jpeg](5.jpeg)
+
+아주 험난한 길이었다.. 사실 모든 것이 완벽하게 이해가 된 것은 아니다. **클로저, 스코프, 재귀적 알고리즘** 등 내가 부족한 부분의 지식들을 응용해서 적용해야 하기 때문이다.
+
+이번 Promise를 구현해보며 혼자서는 힘들었지만, 좋은 교보재 덕분에 만들어볼 수 있었다. 위 내용을 열심히 복습하고 필요한 공부자료를 추가해보도록 해야겠다!!
+
+다시 한번 좋은 자료를 만들어주신, **[황준승님](https://velog.io/@turtle601/posts)께 감사하다는 말을 전달한다.**
+
+<br>
 
 ## 출처 및 도움되는 링크들
 
