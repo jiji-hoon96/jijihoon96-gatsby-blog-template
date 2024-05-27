@@ -566,6 +566,209 @@ new MyPromise((resolve, reject) => {
 
 <br>
 
+### 타입스크립트로 변환해보자.
+
+타입스크립트로 변환하며 state를 별도의 utils로 분리하였다.
+
+```typescript
+import PROMISES_STATE from './utils/state';
+
+type Executor<T> = (resolve: (value: T | MyPromise<T>) => void, reject: (reason?: unknown) => void) => void;
+
+class MyPromise<T = unknown> {
+  #state: string = PROMISES_STATE.pending;
+  #value: T | null = null;
+
+  #catchCallbacks: ((reason?: unknown) => void)[] = [];
+  #thenCallbacks: ((value: T) => void)[] = [];
+
+  constructor(executor: Executor<T>) {
+    try {
+      executor(this.#resolve.bind(this), this.#reject.bind(this));
+    } catch (error) {
+      this.#reject(error);
+    }
+  }
+
+  #runCallbacks(): void {
+    if (this.#state === PROMISES_STATE.fulfilled) {
+      this.#thenCallbacks.forEach((callback) => callback(this.#value as T));
+      this.#thenCallbacks = [];
+    }
+
+    if (this.#state === PROMISES_STATE.rejected) {
+      this.#catchCallbacks.forEach((callback) => callback(this.#value));
+      this.#catchCallbacks = [];
+    }
+  }
+
+  #update(state: string, value: T | MyPromise<T> | unknown): void {
+    queueMicrotask(() => {
+      if (this.#state !== PROMISES_STATE.pending) return;
+      if (value instanceof MyPromise) {
+        value.then(this.#resolve.bind(this), this.#reject.bind(this));
+        return;
+      }
+      this.#state = state;
+      this.#value = value as T;
+      this.#runCallbacks();
+    });
+  }
+
+  #resolve(value: T | MyPromise<T>): void {
+    this.#update(PROMISES_STATE.fulfilled, value);
+  }
+
+  #reject(error: unknown): void {
+    this.#update(PROMISES_STATE.rejected, error);
+  }
+
+  then<TResult = T>(
+    thenCallback?: (value: T) => TResult | MyPromise<TResult>,
+    catchCallback?: (reason?: unknown) => TResult | MyPromise<TResult>,
+  ): MyPromise<TResult> {
+    return new MyPromise<TResult>((resolve, reject) => {
+      this.#thenCallbacks.push((value: T) => {
+        if (!thenCallback) {
+          resolve(value as unknown as TResult);
+          return;
+        }
+
+        try {
+          resolve(thenCallback(value));
+        } catch (error) {
+          reject(error);
+        }
+      });
+
+      this.#catchCallbacks.push((value) => {
+        if (!catchCallback) {
+          reject(value);
+          return;
+        }
+
+        try {
+          resolve(catchCallback(value));
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+  }
+
+  catch<TResult = T>(catchCallback?: (reason?: unknown) => TResult | MyPromise<TResult>): MyPromise<TResult> {
+    return this.then(undefined, catchCallback);
+  }
+
+  finally(callback: () => void): MyPromise<T> {
+    return this.then(
+      (value) => {
+        callback();
+        return value;
+      },
+      (value) => {
+        callback();
+        throw value;
+      },
+    );
+  }
+}
+```
+
+error가 발생해 catch를 할 때 타입을 어떻게 잡을지 난감해 unknown과 제네릭을 이용해 폭넓게 설정해두었다. 추후 해당하는 작업은 리팩토링을 진행해볼 예정이다.
+
+<br>
+
+### jest를 이용해서 단위테스트를 해보자.
+
+```javascript
+describe('MyPromise', () => {
+  test('resolve 정상적으로 작동되는지 테스트', (done) => {
+    new MyPromise((resolve) => {
+      setTimeout(() => resolve('resolved value'), 100);
+    }).then((value) => {
+      expect(value).toBe('resolved value');
+      done();
+    });
+  });
+
+  test('rejects 정상적으로 작동되는지 테스트', (done) => {
+    new MyPromise((resolve, reject) => {
+      setTimeout(() => reject('rejected value'), 100);
+    }).catch((value) => {
+      expect(value).toBe('rejected value');
+      done();
+    });
+  });
+
+  test('Method Chain을 이용해 then 구문이 정확히 동작하는지 테스트', (done) => {
+    new MyPromise((resolve) => {
+      setTimeout(() => resolve('first value'), 100);
+    })
+      .then((value) => {
+        expect(value).toBe('first value');
+        return 'second value';
+      })
+      .then((value) => {
+        expect(value).toBe('second value');
+        done();
+      });
+  });
+
+  test('Method Chain을 이용해 catch 구문이 정확히 동작하는지 테스트', (done) => {
+    new MyPromise((resolve, reject) => {
+      setTimeout(() => reject('first error'), 100);
+    })
+      .catch((value) => {
+        expect(value).toBe('first error');
+        throw 'second error';
+      })
+      .catch((value) => {
+        expect(value).toBe('second error');
+        done();
+      });
+  });
+
+  test('finally가 then 뒤에 정상적으로 작동되는지 테스트', (done) => {
+    let finallyCalled = false;
+    new MyPromise((resolve) => {
+      setTimeout(() => resolve('resolved value'), 100);
+    })
+      .then((value) => {
+        expect(value).toBe('resolved value');
+      })
+      .finally(() => {
+        finallyCalled = true;
+      });
+
+    setTimeout(() => {
+      expect(finallyCalled).toBe(true);
+      done();
+    }, 200);
+  });
+
+  test('finally가 catch 뒤에 정상적으로 작동되는지 테스트', (done) => {
+    let finallyCalled = false;
+    new MyPromise((resolve, reject) => {
+      setTimeout(() => reject('rejected value'), 100);
+    })
+      .catch((value) => {
+        expect(value).toBe('rejected value');
+      })
+      .finally(() => {
+        finallyCalled = true;
+      });
+
+    setTimeout(() => {
+      expect(finallyCalled).toBe(true);
+      done();
+    }, 200);
+  });
+});
+```
+
+<br>
+
 ## 으아 험난했다..
 
 ![5.jpeg](5.jpeg)
