@@ -9,6 +9,12 @@ categories: 자바스크립트
 
 <br>
 
+<br>
+
+<h3>이런게 더 있으면 좋겠다 하거나, 변경이 필요한 것들은 댓글로 적어주세요!!</h3>
+
+<br>
+
 ![1.png](1.png)
 
 ## 왜 만들었어!?
@@ -19,7 +25,7 @@ JavScript을 이용해 Event Loop를 동작해보는 사이트를 만들어보�
 
 <br>
 
-**시연해보기 👉 [Event Loop with JavaScript](https://deploy-preview-2--dontcryjihoon.netlify.app/)**
+**시연해보기 👉 [Event Loop with JavaScript](https://dontcryjihoon.netlify.app/)**
 
 <br>
 
