@@ -1,6 +1,6 @@
 ---
 emoji: 🦵
-title: 'tar.gz, zip, zstd 등 소프트웨어의 압축에 대해 공부해보자!'
+title: 'zip, gzip, zstd, bzip2, xz 등 소프트웨어의 압축 알고리즘에 대해 공부해보자!'
 date: '2024-07-06'
 categories: 소박한궁금증 소프트웨어
 ---
@@ -95,7 +95,7 @@ GZIP보다 더 높은 압축률을 제공하지만, 압축 속도와 압축해�
 
 <br>
 
-### XXZ
+### XZ
 
 LZMA2 알고리즘을 사용하는데, LZMA2는 Lempel-Ziv-Markov chain 알고리즘의 개선된 버전으로, 매우 높은 압축률을 제공한다.
 
