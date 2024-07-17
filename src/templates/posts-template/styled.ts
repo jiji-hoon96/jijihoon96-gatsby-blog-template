@@ -5,6 +5,7 @@ import { contentMaxWidth, MOBILE_MEDIA_QUERY } from '@/src/styles/const';
 export const CategoryWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 280px;
   align-items: center;
   justify-content: center;
   margin-top: 30px;
@@ -64,4 +65,15 @@ export const PostCardsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+`;
+
+export const SearchInput = styled.input`
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s;
 `;

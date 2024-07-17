@@ -1,5 +1,5 @@
 import { navigate } from 'gatsby';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import PostCard from '@/src/components/PostCard';
 import Seo from '@/src/components/Seo';
@@ -34,6 +34,14 @@ const PostsTemplate: React.FC<PostsTemplateProps> = ({ location, pageContext }) 
 
   const ref = useRef<HTMLDivElement>(null);
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredPosts, setFilteredPosts] = useState(posts);
+
+  useEffect(() => {
+    const filtered = posts.filter((post) => post.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    setFilteredPosts(filtered);
+  }, [searchTerm]);
+
   // currentTab이 가운데에 오도록 스크롤
   useEffect(() => {
     if (!ref.current) return;
@@ -47,6 +55,12 @@ const PostsTemplate: React.FC<PostsTemplateProps> = ({ location, pageContext }) 
       <S.CategoryWrapper>
         <S.CategoryTitle>{categories[currentTabIndex]}</S.CategoryTitle>
         <S.CategorySubtitle>{`${posts.length} post${posts.length < 2 ? '' : 's'}`}</S.CategorySubtitle>
+        <S.SearchInput
+          type='text'
+          placeholder='Please enter your search term'
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </S.CategoryWrapper>
 
       <S.TabWrapper>
@@ -63,7 +77,7 @@ const PostsTemplate: React.FC<PostsTemplateProps> = ({ location, pageContext }) 
         </S.Tabs>
 
         <S.PostCardsWrapper>
-          {posts.map((post, index) => (
+          {filteredPosts.map((post, index) => (
             <PostCard key={index} post={post} />
           ))}
         </S.PostCardsWrapper>
