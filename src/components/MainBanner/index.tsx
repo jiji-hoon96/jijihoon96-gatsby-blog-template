@@ -3,6 +3,7 @@ import ReactRotatingText from 'react-rotating-text';
 
 import { Author } from '@/src/type';
 
+import Image from '../Image';
 import * as S from './styled';
 
 type MainBannerProps = {
@@ -30,8 +31,9 @@ const MainBanner: React.FC<MainBannerProps> = ({ author }) => {
             <ReactRotatingText items={[name, nickname]} />
           </strong>
           입니다.
+          <Image alt='thumbnail' src='thumbnail.jpeg' />
         </S.Title>
-        {/*<Image alt='thumbnail' src='thumbnail.png' />*/}
+
         <S.SocialWrapper>
           {Object.keys(social).map(
             (link, index) =>

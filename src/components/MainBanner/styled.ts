@@ -51,6 +51,7 @@ export const Wrapper = styled.div`
 
 export const IntroWrapper = styled.div`
   white-space: nowrap;
+  display: flex;
   justify-content: space-between;
   position: relative;
   font-size: 40px;
@@ -80,7 +81,6 @@ export const IntroWrapper = styled.div`
 
 export const Title = styled.p`
   width: 100%;
-  margin-bottom: 30px;
 
   .react-rotating-text-cursor {
     font-size: 50px;
@@ -99,6 +99,9 @@ export const Title = styled.p`
 
 export const SocialWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
 
   @media ${MOBILE_MEDIA_QUERY} {
     flex-direction: row;
@@ -112,7 +115,6 @@ export const SocialWrapper = styled.div`
 export const SocialButton = styled.a`
   color: ${({ theme }) => theme.color.black100};
   font-size: 18px;
-  margin-right: 10px;
   ${({ theme }) => hoverUnderline(theme)};
 `;
 

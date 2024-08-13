@@ -6,7 +6,7 @@ export default {
   description: `후니네`,
   language: `ko`,
   siteUrl: `https://hooninedev.com/`,
-  ogImage: `/og-image.png`, // Path to your in the 'static' folder
+  ogImage: `/og-image.jpeg`, // Path to your in the 'static' folder
 
   /**
    * comments setting
@@ -31,7 +31,7 @@ export default {
     social: {
       github: `https://github.com/jiji-hoon96`,
       linkedIn: `https://www.linkedin.com/in/jiji-hoon96`,
-      resume: ``,
+      resume: `https://www.figma.com/design/jM6I7TfZB6pOQxM5a51cVD/%EC%9D%B4%EC%A7%80%ED%9B%88-%EC%9D%B4%EB%A0%A5%EC%84%9C?node-id=0-1&t=0etn40XFHFxjDUPW-1`,
     },
     dropdown: {
       tistory: '',
@@ -83,10 +83,18 @@ export default {
     },
     {
       category: 'Activity',
-      date: '2024.1 - NOW',
+      date: '2024.01 - 2024.07',
       en: 'SIPE',
       kr: '사이프',
       info: 'IT 커뮤니티-운영진',
+      link: '',
+    },
+    {
+      category: 'Activity',
+      date: '2024.06 - 2024.08',
+      en: 'DND',
+      kr: '디엔디',
+      info: '사이드 프로젝트 동아리-6조',
       link: '',
     },
   ],
