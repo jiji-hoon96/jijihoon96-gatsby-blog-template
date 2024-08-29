@@ -204,6 +204,23 @@ Zustand의 Provider-less 설계는 아래 4가지 과정이 있기에 가능했�
 
 <br>
 
+### 아 그리고 새로운 소식!!
+
+![7.jpeg](7.jpeg)
+
+<br>
+
+아 그리고 위 내용을 찾아보다 알게 된 사실은 **zustand가 5버전을** 준비하고 있는 것 같다.
+
+아직 RC이지만 현재까지 주요 변경사항은 아래와 같다. (자세한 것은 **[여기를 확인해주세요!](https://github.com/pmndrs/zustand/releases)**)
+
+- **리엑트 18, TS 4.5 이상**으로 최소 요구사항이 변경되었다.
+- **getServerState 가 삭제**되었다.
+- **ES5는 지원 중단** 예정이다.
+- 반복 가능한 객체로 **shallow 함수 개선**되고 있다. README와 shallow.ts파일이 계속해서 수정되고 이슈가 생기고 있다!
+
+<br>
+
 ### 참고자료
 
 - [zustand github](https://github.com/pmndrs/zustand/tree/main/src)
