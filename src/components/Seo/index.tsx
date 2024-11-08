@@ -1,16 +1,29 @@
 import { graphql, useStaticQuery } from 'gatsby';
-import PropTypes from 'prop-types';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 
-type SeoProps = {
+interface SeoProps {
   description?: string;
   title: string;
   children?: React.ReactNode;
-};
+}
 
-const Seo: React.FC<SeoProps> = ({ description, title }) => {
-  const { site } = useStaticQuery(
+interface SiteMetadata {
+  site: {
+    siteMetadata: {
+      title: string;
+      description: string;
+      author: {
+        name: string;
+        nickname: string;
+      };
+      ogImage: string;
+    };
+  };
+}
+
+const Seo = ({ description, title }: SeoProps): JSX.Element => {
+  const { site } = useStaticQuery<SiteMetadata>(
     graphql`
       query {
         site {
@@ -29,27 +42,28 @@ const Seo: React.FC<SeoProps> = ({ description, title }) => {
   );
 
   const metaDescription = description || site.siteMetadata.description;
+  const metaTitle = title || site.siteMetadata.title;
 
   return (
     <Helmet
       htmlAttributes={{ lang: 'en' }}
-      title={title}
+      title={metaTitle}
       defaultTitle={site.siteMetadata.title}
       meta={[
         {
-          property: `og:title`,
-          content: title,
+          property: 'og:title',
+          content: metaTitle,
         },
         {
-          property: `og:site_title`,
-          content: title,
+          property: 'og:site_title',
+          content: metaTitle,
         },
         {
-          name: `description`,
+          name: 'description',
           content: metaDescription,
         },
         {
-          property: `og:description`,
+          property: 'og:description',
           content: metaDescription,
         },
         {
@@ -64,23 +78,13 @@ const Seo: React.FC<SeoProps> = ({ description, title }) => {
           property: 'og:image',
           content: site.siteMetadata.ogImage,
         },
-
         {
-          property: `og:type`,
-          content: `website`,
+          property: 'og:type',
+          content: 'website',
         },
       ]}
     />
   );
-};
-
-Seo.defaultProps = {
-  description: ``,
-};
-
-Seo.propTypes = {
-  description: PropTypes.string as React.Validator<string>,
-  title: PropTypes.string.isRequired,
 };
 
 export default Seo;

@@ -1015,9 +1015,6 @@ $content-image-max-height: 560px;
 
 // added for toc
 .markdown .table-of-contents {
-  @media (max-width: 1400px) {
-    display: none;
-  }
   max-height: 700px;
   padding-top: 160px;
   display: flex;
@@ -1029,6 +1026,10 @@ $content-image-max-height: 560px;
   top: 75px;
   right: 0px;
   overflow-y: scroll;
+
+  @media (max-width: 1400px) {
+    display: none;
+  }
 
   ul {
     cursor: pointer;

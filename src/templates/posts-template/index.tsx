@@ -55,12 +55,12 @@ const PostsTemplate: React.FC<PostsTemplateProps> = ({ location, pageContext }) 
       <S.CategoryWrapper>
         <S.CategoryTitle>{categories[currentTabIndex]}</S.CategoryTitle>
         <S.CategorySubtitle>{`${posts.length} post${posts.length < 2 ? '' : 's'}`}</S.CategorySubtitle>
-        <S.SearchInput
+        {/* <S.SearchInput
           type='text'
           placeholder='Please enter your search term'
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-        />
+        /> */}
       </S.CategoryWrapper>
 
       <S.TabWrapper>

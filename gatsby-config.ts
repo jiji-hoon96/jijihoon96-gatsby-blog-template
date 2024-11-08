@@ -94,6 +94,7 @@ const config: GatsbyConfig = {
         ],
       },
     },
+
     {
       resolve: `gatsby-emotion-dark-mode`,
       options: {
