@@ -1,4 +1,5 @@
-import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
+import { FaMoon, FaSun } from 'react-icons/fa'; /
+
 import { ThemeManagerContext } from 'gatsby-emotion-dark-mode';
 import { useContext } from 'react';
 
@@ -9,7 +10,7 @@ const ThemeToggle: React.FC = () => {
 
   return (
     <S.Wrapper onClick={() => theme.toggleDark()} isDark={theme.isDark}>
-      {theme.isDark ? <SunIcon className='theme-icon' /> : <MoonIcon className='theme-icon' />}
+      {theme.isDark ? <FaSun className='theme-icon' /> : <FaMoon className='theme-icon' />}
     </S.Wrapper>
   );
 };

@@ -1,4 +1,5 @@
-import { Link2Icon } from '@radix-ui/react-icons';
+import { FaLink } from 'react-icons/fa';
+
 import React from 'react';
 
 import { Timestamp } from '@/src/type';
@@ -26,7 +27,7 @@ const Timestamps: React.FC<TimestampsProps> = ({ title, timestamps }) => {
                   {timestamp.kr}
                   {'link' in timestamp && timestamp.link && (
                     <a href={timestamp.link} target='_blank'>
-                      <Link2Icon className='link-icon' />
+                      <FaLink className='link-icon' />
                     </a>
                   )}
                 </S.TitleKr>
