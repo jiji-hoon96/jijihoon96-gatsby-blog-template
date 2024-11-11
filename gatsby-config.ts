@@ -29,6 +29,9 @@ const config: GatsbyConfig = {
         publisherId: `ca-pub-XXXXXXXXXXXX`,
       },
     },
+    {
+      resolve: 'gatsby-adapter-netlify',
+    },
     // Google Analytics
     {
       resolve: `gatsby-plugin-gtag`,
