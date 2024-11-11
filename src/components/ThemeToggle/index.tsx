@@ -1,4 +1,4 @@
-import { FaMoon, FaSun } from 'react-icons/fa'; /
+import { FaMoon, FaSun } from 'react-icons/fa'; 
 
 import { ThemeManagerContext } from 'gatsby-emotion-dark-mode';
 import { useContext } from 'react';
