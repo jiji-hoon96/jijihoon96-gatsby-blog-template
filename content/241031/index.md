@@ -1,5 +1,5 @@
 ---
-emoji: 📦
+emoji: 🤿
 title: 'useSyncExternalStore Deep Dive'
 date: '2024-10-31'
 categories: 프론트엔드 자바스크립트
