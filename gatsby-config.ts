@@ -28,15 +28,15 @@ const config: GatsbyConfig = {
         publisherId: `ca-pub-XXXXXXXXXXXX`,
       },
     },
-    {
-      resolve: `gatsby-plugin-offline`,
-      options: {
-        precachePages: [`/*`],
-        workboxConfig: {
-          globPatterns: ['**/*'],
-        },
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-offline`,
+    //   options: {
+    //     precachePages: [`/*`],
+    //     workboxConfig: {
+    //       globPatterns: ['**/*'],
+    //     },
+    //   },
+    // },
     {
       resolve: 'gatsby-adapter-netlify',
     },
