@@ -60,7 +60,7 @@ const RAW_RUNTIME_STATE =
           ["gatsby-plugin-gtag", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:1.0.13"],\
           ["gatsby-plugin-image", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:2.25.0"],\
           ["gatsby-plugin-manifest", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:4.25.0"],\
-          ["gatsby-plugin-offline", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:5.25.0"],\
+          ["gatsby-plugin-offline", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:6.14.0"],\
           ["gatsby-plugin-react-helmet", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:6.14.0"],\
           ["gatsby-plugin-robots-txt", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:1.8.0"],\
           ["gatsby-plugin-sass", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:5.25.0"],\
@@ -81,7 +81,6 @@ const RAW_RUNTIME_STATE =
           ["gatsby-transformer-remark", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:6.14.0"],\
           ["gatsby-transformer-sharp", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:5.14.0"],\
           ["latest", "npm:0.2.0"],\
-          ["lodash", "npm:4.17.21"],\
           ["minimatch", "npm:10.0.1"],\
           ["mitt", "npm:3.0.1"],\
           ["node-html-parser", "npm:6.1.13"],\
@@ -8389,6 +8388,20 @@ const RAW_RUNTIME_STATE =
           ["whatwg-mimetype", "npm:4.0.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:1.0.0-rc.12", {\
+        "packageLocation": "../../.yarn/berry/cache/cheerio-npm-1.0.0-rc.12-6785a97c2a-10c0.zip/node_modules/cheerio/",\
+        "packageDependencies": [\
+          ["cheerio", "npm:1.0.0-rc.12"],\
+          ["cheerio-select", "npm:2.1.0"],\
+          ["dom-serializer", "npm:2.0.0"],\
+          ["domhandler", "npm:5.0.3"],\
+          ["domutils", "npm:3.1.0"],\
+          ["htmlparser2", "npm:8.0.2"],\
+          ["parse5", "npm:7.2.1"],\
+          ["parse5-htmlparser2-tree-adapter", "npm:7.1.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["cheerio-select", [\
@@ -13047,24 +13060,24 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["gatsby-plugin-offline", [\
-      ["npm:5.25.0", {\
-        "packageLocation": "../../.yarn/berry/cache/gatsby-plugin-offline-npm-5.25.0-1c3e9e1ff8-10c0.zip/node_modules/gatsby-plugin-offline/",\
+      ["npm:6.14.0", {\
+        "packageLocation": "../../.yarn/berry/cache/gatsby-plugin-offline-npm-6.14.0-87805d241e-10c0.zip/node_modules/gatsby-plugin-offline/",\
         "packageDependencies": [\
-          ["gatsby-plugin-offline", "npm:5.25.0"]\
+          ["gatsby-plugin-offline", "npm:6.14.0"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:5.25.0", {\
-        "packageLocation": "./.yarn/__virtual__/gatsby-plugin-offline-virtual-a365e18933/3/.yarn/berry/cache/gatsby-plugin-offline-npm-5.25.0-1c3e9e1ff8-10c0.zip/node_modules/gatsby-plugin-offline/",\
+      ["virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:6.14.0", {\
+        "packageLocation": "./.yarn/__virtual__/gatsby-plugin-offline-virtual-f095cc077b/3/.yarn/berry/cache/gatsby-plugin-offline-npm-6.14.0-87805d241e-10c0.zip/node_modules/gatsby-plugin-offline/",\
         "packageDependencies": [\
-          ["gatsby-plugin-offline", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:5.25.0"],\
+          ["gatsby-plugin-offline", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:6.14.0"],\
           ["@babel/runtime", "npm:7.26.0"],\
           ["@types/gatsby", null],\
           ["@types/react", "npm:18.3.12"],\
           ["@types/react-dom", "npm:18.3.1"],\
-          ["cheerio", "npm:1.0.0"],\
+          ["cheerio", "npm:1.0.0-rc.12"],\
           ["gatsby", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:5.14.0"],\
-          ["gatsby-core-utils", "npm:3.25.0"],\
+          ["gatsby-core-utils", "npm:4.14.0"],\
           ["glob", "npm:7.2.3"],\
           ["idb-keyval", "npm:3.2.0"],\
           ["lodash", "npm:4.17.21"],\
@@ -14868,7 +14881,7 @@ const RAW_RUNTIME_STATE =
           ["gatsby-plugin-gtag", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:1.0.13"],\
           ["gatsby-plugin-image", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:2.25.0"],\
           ["gatsby-plugin-manifest", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:4.25.0"],\
-          ["gatsby-plugin-offline", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:5.25.0"],\
+          ["gatsby-plugin-offline", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:6.14.0"],\
           ["gatsby-plugin-react-helmet", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:6.14.0"],\
           ["gatsby-plugin-robots-txt", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:1.8.0"],\
           ["gatsby-plugin-sass", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:5.25.0"],\
@@ -14889,7 +14902,6 @@ const RAW_RUNTIME_STATE =
           ["gatsby-transformer-remark", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:6.14.0"],\
           ["gatsby-transformer-sharp", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:5.14.0"],\
           ["latest", "npm:0.2.0"],\
-          ["lodash", "npm:4.17.21"],\
           ["minimatch", "npm:10.0.1"],\
           ["mitt", "npm:3.0.1"],\
           ["node-html-parser", "npm:6.1.13"],\

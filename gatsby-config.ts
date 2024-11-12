@@ -16,7 +16,6 @@ const config: GatsbyConfig = {
     `gatsby-plugin-image`,
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-advanced-sitemap`,
-    `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sass`,
     `gatsby-transformer-sharp`,
@@ -27,6 +26,15 @@ const config: GatsbyConfig = {
       resolve: `gatsby-plugin-google-adsense`,
       options: {
         publisherId: `ca-pub-XXXXXXXXXXXX`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        precachePages: [`/*`],
+        workboxConfig: {
+          globPatterns: ['**/*'],
+        },
       },
     },
     {
