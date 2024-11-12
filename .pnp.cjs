@@ -30,9 +30,7 @@ const RAW_RUNTIME_STATE =
           ["@babel/eslint-plugin", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:7.25.9"],\
           ["@emotion/react", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:11.13.3"],\
           ["@emotion/styled", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:11.13.0"],\
-          ["@gatsbyjs/reach-router", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:1.3.9"],\
           ["@gatsbyjs/webpack-hot-middleware", "npm:2.25.3"],\
-          ["@reach/router", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:1.3.4"],\
           ["@svgr/webpack", "npm:8.1.0"],\
           ["@types/react", "npm:18.3.12"],\
           ["@types/react-dom", "npm:18.3.1"],\
@@ -3164,39 +3162,12 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@gatsbyjs/reach-router", [\
-      ["npm:1.3.9", {\
-        "packageLocation": "../../.yarn/berry/cache/@gatsbyjs-reach-router-npm-1.3.9-c0e167a0a0-10c0.zip/node_modules/@gatsbyjs/reach-router/",\
-        "packageDependencies": [\
-          ["@gatsbyjs/reach-router", "npm:1.3.9"]\
-        ],\
-        "linkType": "SOFT"\
-      }],\
       ["npm:2.0.1", {\
         "packageLocation": "../../.yarn/berry/cache/@gatsbyjs-reach-router-npm-2.0.1-c5039db5e7-10c0.zip/node_modules/@gatsbyjs/reach-router/",\
         "packageDependencies": [\
           ["@gatsbyjs/reach-router", "npm:2.0.1"]\
         ],\
         "linkType": "SOFT"\
-      }],\
-      ["virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:1.3.9", {\
-        "packageLocation": "./.yarn/__virtual__/@gatsbyjs-reach-router-virtual-6899aef760/3/.yarn/berry/cache/@gatsbyjs-reach-router-npm-1.3.9-c0e167a0a0-10c0.zip/node_modules/@gatsbyjs/reach-router/",\
-        "packageDependencies": [\
-          ["@gatsbyjs/reach-router", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:1.3.9"],\
-          ["@types/react", "npm:18.3.12"],\
-          ["@types/react-dom", "npm:18.3.1"],\
-          ["invariant", "npm:2.2.4"],\
-          ["prop-types", "npm:15.8.1"],\
-          ["react", "npm:18.3.1"],\
-          ["react-dom", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:18.3.1"],\
-          ["react-lifecycles-compat", "npm:3.0.4"]\
-        ],\
-        "packagePeers": [\
-          "@types/react-dom",\
-          "@types/react",\
-          "react-dom",\
-          "react"\
-        ],\
-        "linkType": "HARD"\
       }],\
       ["virtual:ef60fba47d6c569b5dcf926277df0d891cbc5b1ba1aab5804603d14c754050523cb1d929e05bdd3ffe4b30c4f4289d8a4516c4fc6fa1a506030b73c4d3c899c3#npm:2.0.1", {\
         "packageLocation": "./.yarn/__virtual__/@gatsbyjs-reach-router-virtual-221af113b3/3/.yarn/berry/cache/@gatsbyjs-reach-router-npm-2.0.1-c5039db5e7-10c0.zip/node_modules/@gatsbyjs/reach-router/",\
@@ -4965,36 +4936,6 @@ const RAW_RUNTIME_STATE =
           ["@pnpm/config.env-replace", "npm:1.1.0"],\
           ["@pnpm/network.ca-file", "npm:1.0.2"],\
           ["config-chain", "npm:1.1.13"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@reach/router", [\
-      ["npm:1.3.4", {\
-        "packageLocation": "../../.yarn/berry/cache/@reach-router-npm-1.3.4-edba1cdd2e-10c0.zip/node_modules/@reach/router/",\
-        "packageDependencies": [\
-          ["@reach/router", "npm:1.3.4"]\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:1.3.4", {\
-        "packageLocation": "./.yarn/__virtual__/@reach-router-virtual-9622ab1cab/3/.yarn/berry/cache/@reach-router-npm-1.3.4-edba1cdd2e-10c0.zip/node_modules/@reach/router/",\
-        "packageDependencies": [\
-          ["@reach/router", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:1.3.4"],\
-          ["@types/react", "npm:18.3.12"],\
-          ["@types/react-dom", "npm:18.3.1"],\
-          ["create-react-context", "virtual:9622ab1cab1f331f66b8fa5f3db154bd366b0e7fde8f6e0ff0191f01d9a7ac6449fe423f916f134b460c0345c12fc90f79a5903ba280ab1f250e1ae6c4c7ee9f#npm:0.3.0"],\
-          ["invariant", "npm:2.2.4"],\
-          ["prop-types", "npm:15.8.1"],\
-          ["react", "npm:18.3.1"],\
-          ["react-dom", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:18.3.1"],\
-          ["react-lifecycles-compat", "npm:3.0.4"]\
-        ],\
-        "packagePeers": [\
-          "@types/react-dom",\
-          "@types/react",\
-          "react-dom",\
-          "react"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -9168,34 +9109,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["create-react-context", [\
-      ["npm:0.3.0", {\
-        "packageLocation": "../../.yarn/berry/cache/create-react-context-npm-0.3.0-5fddf11449-10c0.zip/node_modules/create-react-context/",\
-        "packageDependencies": [\
-          ["create-react-context", "npm:0.3.0"]\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["virtual:9622ab1cab1f331f66b8fa5f3db154bd366b0e7fde8f6e0ff0191f01d9a7ac6449fe423f916f134b460c0345c12fc90f79a5903ba280ab1f250e1ae6c4c7ee9f#npm:0.3.0", {\
-        "packageLocation": "./.yarn/__virtual__/create-react-context-virtual-b5672e739b/3/.yarn/berry/cache/create-react-context-npm-0.3.0-5fddf11449-10c0.zip/node_modules/create-react-context/",\
-        "packageDependencies": [\
-          ["create-react-context", "virtual:9622ab1cab1f331f66b8fa5f3db154bd366b0e7fde8f6e0ff0191f01d9a7ac6449fe423f916f134b460c0345c12fc90f79a5903ba280ab1f250e1ae6c4c7ee9f#npm:0.3.0"],\
-          ["@types/prop-types", null],\
-          ["@types/react", "npm:18.3.12"],\
-          ["gud", "npm:1.0.0"],\
-          ["prop-types", "npm:15.8.1"],\
-          ["react", "npm:18.3.1"],\
-          ["warning", "npm:4.0.3"]\
-        ],\
-        "packagePeers": [\
-          "@types/prop-types",\
-          "@types/react",\
-          "prop-types",\
-          "react"\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["cron-parser", [\
       ["npm:4.9.0", {\
         "packageLocation": "../../.yarn/berry/cache/cron-parser-npm-4.9.0-2a573f98e9-10c0.zip/node_modules/cron-parser/",\
@@ -12705,7 +12618,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/gatsby-link-virtual-d9e97529dd/3/.yarn/berry/cache/gatsby-link-npm-5.14.0-1a1891586d-10c0.zip/node_modules/gatsby-link/",\
         "packageDependencies": [\
           ["gatsby-link", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:5.14.0"],\
-          ["@gatsbyjs/reach-router", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:1.3.9"],\
+          ["@gatsbyjs/reach-router", null],\
           ["@types/gatsbyjs__reach-router", null],\
           ["@types/reach__router", "npm:1.3.15"],\
           ["@types/react", "npm:18.3.12"],\
@@ -13466,7 +13379,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["gatsby-react-router-scroll", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:6.14.0"],\
           ["@babel/runtime", "npm:7.26.0"],\
-          ["@gatsbyjs/reach-router", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:1.3.9"],\
+          ["@gatsbyjs/reach-router", null],\
           ["@types/gatsbyjs__reach-router", null],\
           ["@types/react", "npm:18.3.12"],\
           ["@types/react-dom", "npm:18.3.1"],\
@@ -13714,7 +13627,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/gatsby-script-virtual-440a143a20/3/.yarn/berry/cache/gatsby-script-npm-2.14.0-e5c701e0bc-10c0.zip/node_modules/gatsby-script/",\
         "packageDependencies": [\
           ["gatsby-script", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:2.14.0"],\
-          ["@gatsbyjs/reach-router", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:1.3.9"],\
+          ["@gatsbyjs/reach-router", null],\
           ["@types/gatsbyjs__reach-router", null],\
           ["@types/react", "npm:18.3.12"],\
           ["@types/react-dom", "npm:18.3.1"],\
@@ -14470,15 +14383,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["gud", [\
-      ["npm:1.0.0", {\
-        "packageLocation": "../../.yarn/berry/cache/gud-npm-1.0.0-9747ac46ec-10c0.zip/node_modules/gud/",\
-        "packageDependencies": [\
-          ["gud", "npm:1.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["gzip-size", [\
       ["npm:6.0.0", {\
         "packageLocation": "../../.yarn/berry/cache/gzip-size-npm-6.0.0-d5b52fdbf1-10c0.zip/node_modules/gzip-size/",\
@@ -14851,9 +14755,7 @@ const RAW_RUNTIME_STATE =
           ["@babel/eslint-plugin", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:7.25.9"],\
           ["@emotion/react", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:11.13.3"],\
           ["@emotion/styled", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:11.13.0"],\
-          ["@gatsbyjs/reach-router", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:1.3.9"],\
           ["@gatsbyjs/webpack-hot-middleware", "npm:2.25.3"],\
-          ["@reach/router", "virtual:0f6c8632889cc677d74c9163176e34a879faf39bfb26cf9185425698c9d77b53247d176528722672f8fd08c19f8ace13312211542042641c2323769be2b71030#npm:1.3.4"],\
           ["@svgr/webpack", "npm:8.1.0"],\
           ["@types/react", "npm:18.3.12"],\
           ["@types/react-dom", "npm:18.3.1"],\
@@ -20955,15 +20857,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["react-lifecycles-compat", [\
-      ["npm:3.0.4", {\
-        "packageLocation": "../../.yarn/berry/cache/react-lifecycles-compat-npm-3.0.4-d5e285a39e-10c0.zip/node_modules/react-lifecycles-compat/",\
-        "packageDependencies": [\
-          ["react-lifecycles-compat", "npm:3.0.4"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["react-refresh", [\
       ["npm:0.14.2", {\
         "packageLocation": "../../.yarn/berry/cache/react-refresh-npm-0.14.2-95df341b4d-10c0.zip/node_modules/react-refresh/",\
@@ -24683,16 +24576,6 @@ const RAW_RUNTIME_STATE =
           ["vfile-message", "npm:2.0.4"],\
           ["@types/unist", "npm:2.0.11"],\
           ["unist-util-stringify-position", "npm:2.0.3"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["warning", [\
-      ["npm:4.0.3", {\
-        "packageLocation": "../../.yarn/berry/cache/warning-npm-4.0.3-291e921d6d-10c0.zip/node_modules/warning/",\
-        "packageDependencies": [\
-          ["warning", "npm:4.0.3"],\
-          ["loose-envify", "npm:1.4.0"]\
         ],\
         "linkType": "HARD"\
       }]\
