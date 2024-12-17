@@ -371,3 +371,7 @@ import { useSyncExternalStore } from 'use-sync-external-store/shim';
 - [useMutableSource → useSyncExternalStore ](https://github.com/reactwg/react-18/discussions/86)
 - [useSyncExternalStore- Github 코드](https://github.com/facebook/react/blob/main/packages/use-sync-external-store/src/useSyncExternalStoreShim.js)
 - [useSyncExternalStoreShimClient.js의 핵심 로직](https://github.com/facebook/react/blob/main/packages/use-sync-external-store/src/useSyncExternalStoreShimClient.js)
+
+```toc
+
+```
