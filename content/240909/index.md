@@ -18,15 +18,18 @@ React 상태가 변화하는 과정은 크게 5단계로 나눌 수 있다.
 <br/>
 
 
-### Batching, Transaction
 
  **배치 처리 (Batching)**
+
+![1.jpg](1.jpg)
 
 - 배치 처리는 여러 상태 업데이트를 하나의 리렌더링으로 그룹화하는 프로세스다.
 
 - 배치 처리를 통해 불필요한 렌더링을 최소화하고, 메모리 할당을 줄이는 등의 장점을 누릴 수 있다.
 
 - React 18에서는 모든 업데이트가 자동으로 배치 처리된다.
+
+<br/>
 
  **트랜잭션 처리**
 
@@ -35,47 +38,20 @@ React 상태가 변화하는 과정은 크게 5단계로 나눌 수 있다.
 - 최대 장점은 원자성, 일관성, 격리성이 있다.
 
 ```typescript
-// 트랜잭션 래퍼 예시
-class ReactStateTransaction {
-  constructor() {
-    this.reinitializeTransaction();
-    this.dirtyComponentsLength = null;
-  }
-
-  // 트랜잭션 시작 전 실행
-  initialize() {
-    this.dirtyComponentsLength = dirtyComponents.length;
-  }
-
-  // 트랜잭션 완료 후 실행
-  close() {
-    if (this.dirtyComponentsLength !== dirtyComponents.length) {
-      // 추가 업데이트가 발생한 경우 처리
-      dirtyComponents.splice(this.dirtyComponentsLength);
-    }
-    // 클린업 작업
-  }
-}
-
-// 실제 사용 예시
 function TransactionExample() {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
 
   const updateUserData = async () => {
     try {
-      // 트랜잭션 시작
-      startTransaction();
+      startTransaction(); // 트랜잭션 시작
 
-      // 여러 상태 업데이트
       setUser(newUser);
       setPosts(newPosts);
 
-      // 트랜잭션 커밋
-      commitTransaction();
+      commitTransaction(); // 트랜잭션 커밋
     } catch (error) {
-      // 오류 발생 시 롤백
-      rollbackTransaction();
+      rollbackTransaction(); // 오류 발생하면 롤백
     }
   };
 }
@@ -87,6 +63,8 @@ function TransactionExample() {
 
 ## 초기 트리거 단계
 
+![3.webp](3.webp)
+
 초기 트리거 단계는 React에서 상태 변화가 시작되는 첫 단계다.
 
 초기 상태를 생성하고, 업데이트를 위한 객체를 생성하고, 업데이트를 큐로 관리해 배치 처리한다. 이러한 단계를 예시코드를 통해 자세하게 알아보자.
@@ -95,7 +73,9 @@ function TransactionExample() {
 
 ### 초기 상태 생성
 
-useState, useReducer, useContext, 외부 상태 관리 라이브러리를 이용해 초기 상태가 생성되고, set 같은 상태 업데이트 함수가 호출될 때 트리거된다.
+우선 useState, useReducer, useContext, 외부 상태 관리 라이브러리를 이용해 초기 상태가 생성되고, set 같은 상태 업데이트 함수가 호출될 때 트리거된다.
+
+트리거(Trigger)는 상태(state)가 변경될 때 컴포넌트(component)가 다시 렌더링(re-rendering)되도록 하는 것을 의미한다.
 
 <br/>
 
@@ -107,17 +87,23 @@ useState, useReducer, useContext, 외부 상태 관리 라이브러리를 이용
 
 ```typescript
 interface Update<State> {
-  lane: Lane;  // 우선 순위 시스템
-
-  tag: UpdateTag; // 업데이트 타입으로 해당 에시에서는 state
-
-  payload: any; // 새로운 상태 또는 상태를 계산하는 함수
-
-  next: Update<State> | null; // 다음 업데이트에 대한 참조
-
-  eventTime: number; // 업데이트 우선순위
+  lane: Lane;
+  tag: UpdateTag;
+  payload: any;
+  next: Update<State> | null;
+  eventTime: number;
 }
 ```
+
+**lane는** React의 우선순위 시스템을 구현하는 필드다. 동기/비동기 업데이트 구분, 사용자 상호작용, 데이터 페칭 등 업데이트 유형에 따른 우선순위 할당등의 역할을 한다.
+
+**tag는** UpdateState, ReplaceState, ForceUpdate, CaptureUpdate 4가지 종류가 있다.
+
+**payload는** 상태 계산에 필요한 정보를 가지고 있다.
+
+**next는** 업데이트 큐에서 연결 리스트 구현(업데이트 순차 처리)에 사용한다.
+
+**eventTime은** 우선순위 계산, 타임아웃 처리, 성능 측정, 디버깅에 활용한다.
 
 실제 생성은 아래처럼 된다.
 
@@ -135,41 +121,31 @@ const update = {
 
 ### 업데이트 큐에 추가
 
+![2.png](2.png)
+
 생성된 업데이트 객체는 업데이트 큐에 추가된다.
 
 여러 업데이트가 발생하면 큐에서 연결 리스트 형태로 관리되는데, 구조는 아래와같다
 
 ```typescript
 interface UpdateQueue<State> {
-  baseState: State; // 기본 상태 값 - 마지막으로 커밋된 상태
-  firstBaseUpdate: Update<State> | null; // 업데이트 연결 리스트의 첫 번째 업데이트
-  lastBaseUpdate: Update<State> | null; // 업데이트 연결 리스트의 마지막 업데이트
+  baseState: State; 
+  firstBaseUpdate: Update<State> | null; 
+  lastBaseUpdate: Update<State> | null; 
   shared: {
-    pending: Update<State> | null; // 아직 처리되지 않은 대기 중인 업데이트
+    pending: Update<State> | null; 
   };
-  effects: Array<Effect> | null; // 사이드 이펙트 목록
+  effects: Array<Effect> | null; 
 }
 ```
 
-<br/>
+**baseState** 로 기본 상태를 저장하고, **firstBaseUpdate/lastBaseUpdate** 를 활용해 업데이트 연결 리스트의 첫 번째와 마지막 업데이트를 저장한다.
 
-### 큐 처리 과정
+아직 처리 대기중인 업데이트는 **pending** 에 저장하고 사이드 이팩트는 **effect** 에 할당된다.
 
-큐 처리는 초기화를 우선하고 업데이트를 연결하게 된다.
+업데이트 큐에 추가되면 큐 처리는 초기화를 우선하고 업데이트를 연결한다.
 
-```typescript
-const queue = {
-  baseState: currentState,
-  firstBaseUpdate: null,
-  lastBaseUpdate: null,
-  shared: {
-    pending: null,
-  },
-  effects: [],
-};
-```
-
-업데이트 연결을 할 때 첫 업데이트/기존 업데이트 상황에 따라 연결 리스트의 구조가 다르다.
+아래 코드를 살펴보면, 업데이트 연결을 할 때 첫 업데이트/기존 업데이트 상황에 따라 연결 리스트의 구조가 다르다.
 
 ```typescript
 function enqueueUpdate(fiber, queue, update) {
@@ -201,26 +177,70 @@ enqueueUpdate 함수는 컴포넌트의 fiber 노드, 업데이트를 지정하�
 
 ###  우선순위 지정 (Lanes 시스템)
 
+![4.png](4.png)
+
+업데이트 객체를 생성할 때 Lane을 이용해 우선순위를 표현한다.
+
 여기서 Lane은 비트 마스크를 사용하여 우선순위를 표현하는 방식으로, 각 비트는 특정 우선순위 레벨을 나타낸다.
 
-업데이트 객체를 생성할 때 Lane을 이용해 우선순위를 표현한다. 우선 순위는 오른쪽으로 갈수록 낮아진다.
+<br/>
 
-SyncLane(동기업데이트)=> InputContinuousLane(사용자 입력과 관련) => DefaultLane(일반적인 상태 업데이트) => TransitionLane(UI 전환 효과, 지연효과) => IdleLane(백그라운드 작업)
+**SyncLane(동기업데이트)** => 우선 순위 제일 높음
+
+- 즉시 처리가 필요한 동기 업데이트 (긴급한 상태 업데이트, 직접적인 DOM 조작)
+- 다른 작업을 중단하고 즉시 실행한다.
+
+<br/>
+
+**InputContinuousLane(사용자 입력과 관련)**
+
+- 사용자 입력과 관련된 업데이트 (키보드 입력, 마우스 이벤트)
+- 반응성을 위해 높은 우선순위 부여
+
+<br/>
+
+**DefaultLane(일반적인 상태 업데이트)**
+
+- 일반적인 상태 업데이트 (API 응답에 따른 상태 변경)
+- 보통 수준의 우선순위로 처리
+
+<br/>
+
+**TransitionLane(UI 전환 효과, 지연효과)**
+
+- UI 전환과 관련된 업데이트 (페이지 전환, 애니메이션)
+- useTransition, startTransition 과 같은 지연 가능한 업데이트 처리
+
+<br/>
+
+**IdleLane(백그라운드 작업)** => 우선 순위 제일 낮음
+
+- 백그라운드 작업 (데이터 프리페칭, 로깅)
+- 브라우저 유휴 시간에 처리
+
 
 <br/>
 
 
-### 업데이트 배치 처리
+### 업데이트 배치 처리 (Batch Processing)
 
-배치 처리 메커니즘과 스케줄러의 긴밀한 상호작용을 기반으로 React의 성능과 사용자 경험을 최적화한다.
+React는 여러 상태 업데이트를 효율적으로 처리하기 위해 **배치 처리**를 사용한다. 여러 상태 업데이트를 단일 배치로 그룹화하여 처리함으로써 **성능을 최적화하고 불필요한 리렌더링을 방지한다.**
 
-여러 상태 업데이트를 단일 배치로 그룹화하여 객체 생성하고 우선순위를 할당한다. 이 후 업데이트 큐에 순차적으로 추가된다.
+**배치 처리 메커니즘은** 업데이트를 그룹화하고, 각 업데이트에 우선순위를 할당한 후, 이를 업데이트 큐에 순차적으로 추가한다. 
 
-배치 컨텍스트로 경계 설정하고, 비동기/동기 컨텍스트 구분하며 트랙잭션 단위를 정의하게 된다.
+이 과정에서 **React는 동기/비동기 컨텍스트를 구분**하고, 트랜잭션 단위로 상태를 관리하여 일관성을 유지한다.
 
-작업 스케줄링은 우선 순위 기반으로 큐 관리하며, 리소스 사용 최적화를 위해 실행 시점 결정된다. 
+React의 스케줄러는 우선순위를 기반으로 업데이트 큐를 관리한다. 각 업데이트는 우선순위와 만료 시간을 가지며, 스케줄러는 이를 기반으로 실행 시점을 결정한다.
 
-실행컨텍스트를 통해 브라우저 이벤트 루프와 통합된다.
+![5.gif](5.gif)
+
+
+이러한 스케줄링은 **브라우저의 이벤트 루프와 긴밀하게 통합**되어 있어, 프레임 레이트(디스플레이가 화면의 이미지를 얼마나 자주 업데이트하는지를 나타내는 측정 단위)를 최적화하고 리소스 사용을 효율적으로 관리할 수 있다.
+
+**React 18부터는 자동 배치(Automatic Batching)가** 기본적으로 적용되어, 더욱 효율적인 상태 업데이트가 가능해졌다. 
+
+이를 통해 개발자는 별도의 설정 없이도 최적화된 상태 관리의 이점을 누릴 수 있게 되었다. 이러한 배치 처리 시스템은 React 애플리케이션의 성능과 사용자 경험을 크게 향상시키는 핵심 기능이다.
+
 
 <br/>
 
@@ -232,46 +252,71 @@ SyncLane(동기업데이트)=> InputContinuousLane(사용자 입력과 관련) =
 
 ## 재조정(Reconciliation) 단계
 
-React의 재조정은 상태 변화를 실제 UI 변화로 변환하는 과정이다. 변경된 부분만 효율적으로 변화하는 것을 중점으로 다룬다.
+![6.jpeg](6.jpeg)
+
+React의 재조정은 상태 변화를 실제 UI 변화로 변환하는 핵심 과정이다. 
+
+이 과정은 효율적인 UI 업데이트를 위해 변경된 부분만을 식별하고 수정하는 것에 중점을 두고있다.
 
 <br/>
 
 ### 새로운 상태 계산
 
-React는 이전 상태와 들어온 업데이트들을 보고, 최종적으로 어떤 상태가 되어야 하는지 파악한다.
+React는 상태 업데이트를 처리할 때 두 가지 핵심 작업을 수행한다.
 
-업데이트를 순서대로 처리해서 최종값이 정상적으로 나오도록 고려한다.
+- 현재 상태와 컴포넌트의 마지막 렌더링 결과를 확인해 이전 상태를 평가한다.
+- 들어온 업데이트들을 순차적으로 처리하여 최종 상태를 계산한다.
 
 <br/>
 
 ### Virtual DOM 비교
 
-현재 화면에 보이는 내용을 나타내는 Virtual DOM과 새로운 상태를 기반으로 만들어진 새로운 Virtual DOM을 비교한다.
+React는 효율적인 UI 업데이트를 위해 Virtual DOM을 활용한다.
 
-이 과정에서 React는 Diff 알고리즘을 사용한다. Diff 알고리즘을 기반으로 전체를 변경하지 않고 바뀐 부분만 찾아 내서 변경한다. 그렇기에 'key' prop이 중요하게 다루어진다.
+현재 Virtual DOM은 실제 DOM에 반영된 현재 UI 상태이고, 새로운 Virtual DOM은 새로운 상태를 기반으로 생성된 UI 트리다. 
+
+**[Diff 알고리즘](https://devocean.sk.com/blog/techBoardDetail.do?ID=165611)은** 두 Virtual DOM을 비교하여 차이점을 찾는다. 특히 key prop은 리스트 요소의 식별과 효율적인 재사용을 위해 중요하다.
 
 <br/>
 
 ### 필요한 업데이트 결정
 
-비교가 끝나면 React는 실제로 어떤 부분을 업데이트해야 할지 결정
+React는 텍스트/속성/구조 변경 업데이트를 처리한다.
 
-- 텍스트만 변경되었다면 해당 텍스트만 업데이트
-- 요소의 속성만 변경되었다면 속성만 업데이트
-- 요소가 완전히 변경되었다면 해당 부분을 새로 생성
+**텍스트 업데이트**
 
-이러한 결정은 성능에 직접적인 영향을 미치기 때문에, React는 매우 신중하게 이 과정을 수행한다.
+```javascript
+  <div>Hello {name}</div>  // 텍스트 내용만 변경
+```
+
+**속성 업데이트**
+
+```javascript
+  <button className={isActive ? 'active' : ''}>  // 클래스만 변경
+```
+
+**구조적 변경**
+
+```javascript
+{condition ? <ComponentA /> : <ComponentB />}  // 컴포넌트 전체 교체
+```
+
+
 
 <br/>
 
 ### Fiber 트리 구성
 
-Fiber 트리에 대한 내용은 별도 글에서 다루기에 여기서는 넘어간다. 내용이 궁금하면 [여기를 참조해보면 좋다](https://github.com/acdlite/react-fiber-architecture)
+Fiber 트리에 대한 내용은 다룰 것이 너무 많다. 그래서 별도로 다루려한다.
+
+내용이 궁금하면 **[여기를 참조해보면 좋다](https://github.com/acdlite/react-fiber-architecture)**
 
 <br/>
 
 
 ## 커밋(Commit) 단계
+
+![7.png](7.png)
 
 커밋 단계는 React의 변경사항을 실제 DOM에 안전하게 적용하고, 부수 효과를 관리하며, 메모리를 효율적으로 관리하는 중요한 단계다.
 
@@ -292,6 +337,8 @@ Fiber 트리에 대한 내용은 별도 글에서 다루기에 여기서는 넘�
 <br/>
 
 ### 부수 효과(Effects) 실행
+
+![9.png](9.png)
 
 부수효과에는 useLayoutEffect(레이아웃 효과) 와 useEffect(패시브 효과)가 있다.
 
@@ -372,17 +419,17 @@ useEffect(() => {
 
 상태를 초기화하고 최적화 준비를 끝낸다.
 
-이것도 깊게 생각해보면 업데이트 큐 초기화를 진행한다. 그 다음 우선순위 시스템을 새로 준비하게 되는데 그 내용들은 아래 5개를 의미한다.
+다음 업데이트를 준비하기 위해, 업데이트 큐 초기화를 진행한다. 그 다음 우선순위 시스템을 새로 준비하게 되는데 그 내용들은 아래 5개를 의미한다.
 
-1. 위에서 설명했던 레인(Lane) 할당하고 작업 우선순위 설정
+- 위에서 설명했던 레인(Lane) 할당하고 작업 우선순위 설정
 
-2. 작업 스케줄링 준비 (작업 큐 초기화, 스케줄링 상태 리셋)
+- 작업 스케줄링 준비 (작업 큐 초기화, 스케줄링 상태 리셋)
 
-3. 성능 최적화 준비 (메모리 모니터링, 성능 메트릭 초기화)
+- 성능 최적화 준비 (메모리 모니터링, 성능 메트릭 초기화)
 
-4. 실행 컨텍스트 준비 (렌더 컨텍스트 초기화)
+- 실행 컨텍스트 준비 (렌더 컨텍스트 초기화)
 
-5. 동시성 모드 준비 (시간 분할 설정, 인터럽트 처리 준비)
+- 동시성 모드 준비 (시간 분할 설정, 인터럽트 처리 준비)
 
 <br/>
 
@@ -394,6 +441,7 @@ useEffect(() => {
 - [React Fiber architecture](https://github.com/acdlite/react-fiber-architecture)
 - [React 내부구현 해보기](https://pomb.us/build-your-own-react/)
 - [Scheduling in React](https://philippspiess.com/scheduling-in-react/)
+- [리액트 배칭의 모든 것](https://yozm.wishket.com/magazine/detail/2493/)
 
 ```toc
 
