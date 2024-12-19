@@ -5,6 +5,8 @@ date: '2024-11-16'
 categories: 프론트엔드 자바스크립트
 ---
 
+![1.webp](1.webp)
+
 zustand의 immer 그리고 valtio에 대해 알아보기전에 불변성에 대해 간단히 알아보자.
 
 <br/>
@@ -42,6 +44,8 @@ React의 렌더링 최적화는 참조 비교에 기반한다. 불변성을 통�
 <br>
 
 # zustand immer 미들웨어
+
+![3.png](3.png)
 
 <br/>
 
@@ -191,6 +195,8 @@ as((s: T) => T) | T | Partial<T>;
 
 <br/>
 
+![4.jpeg](4.jpeg)
+
 ## 그래서 완전한 불변성을 보장할까?
 
 zustand immer는 완벽한 불변성을 보장하지는 못한다.
@@ -224,6 +230,8 @@ zustand immer는 완벽한 불변성을 보장하지는 못한다.
 ![이미지2](image2.png)
 
 그래서 알아보러 간다. Valtio
+
+![5.png](5.png)
 
 <br>
 
